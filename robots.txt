@@ -1,0 +1,3 @@
+User-agent: *
+Clean-param: sort
+Disallow: /phpmailer

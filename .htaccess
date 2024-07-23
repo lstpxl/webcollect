@@ -1,0 +1,88 @@
+#Glavnaya stranica - default.html
+DirectoryIndex index.php
+
+# Nuzhno delat fayly v UTF-8 without BOM
+AddDefaultCharset UTF-8
+##CharsetDisable On
+#CharsetDefault UTF-8
+#CharsetSourceEnc UTF-8
+##CharsetRecodeMultipartForms off
+
+#Svoya stranica oshibki 404
+ErrorDocument 404 /index.php
+ErrorDocument 403 /index.php
+
+#Zakrit dostup dlya vseh
+#deny from all
+
+
+#Razreshit vhod tolko s adresa 208.77.188.166
+#Order deny,allow 
+#Deny from all 
+#Allow from 208.77.188.166
+
+
+#Perenapravlenie na sait test.com
+#Redirect / http://www.test.com
+
+
+#Zapret na otobrajenie failov v directorii pri otsutstvii indeksnogo faila
+Options -Indexes
+
+
+#Otobrajenie failov v directorii pri otsutsvii indeksnogo faila
+#Options +Indexes
+
+
+#Ustanovit parol na directoriu
+#AuthName ProtectedZone 
+#AuthType Basic
+#AuthUserFile /home/testuser/.htpasswd
+#require valid-user
+
+
+#Podderjka SSI v html
+#AddType text/html .shtml .htm .html 
+#AddHandler server-parsed .shtml 
+#Options +Includes
+
+
+#Privyazka domena subdomain.domain.ru k papke subdomain
+#RewriteEngine on
+#RewriteCond %{HTTP_HOST} (www\.)?subdomain\.domen\.ru$
+#RewriteCond %{REQUEST_URI} !^(/)?subdomain/
+#RewriteRule ^(.*)$ subdomain/$1
+
+
+#Obrabotka php v html
+RemoveHandler .html .htm
+#AddType application/x-httpd-php .php .htm .html
+
+
+#Zapret dostupa s opredelennih IP
+#allow from all
+#Deny from 208.77.188.166
+#Deny from 82.98.86.174
+
+
+#Parol na ska4ivanie faila
+#<Files private.zip>
+#AuthName "Users zone"
+#AuthType Basic
+#AuthUserFile /home/testuser/.htpasswd
+#</Files>
+
+
+#Parol na gruppu failov(v primere dlya vse failov *.sql)
+#<Files "\.(sql)$">
+#AuthName "Protected zone"
+#AuthType Basic
+#AuthUserFile /home/testuser/.htpasswd
+#</Files>
+
+# Displaying PHP errors
+# php_flag display_errors on
+# php_value error_reporting 2047
+php_flag magic_quotes_gpc off
+
+DirectoryIndex index.php index.html index.htm index.shtml index.php5 index.phtml index.php3 index.php4
