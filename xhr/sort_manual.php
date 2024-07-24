@@ -639,10 +639,10 @@ function jqfn_sort_manual($param) {
 	$param['ajp'] = array();
 	$param['ajp']['callback'] = 'js_sort_manual_callback';
 	
-	do_sort_manual(&$param);
+	do_sort_manual($param);
 		
 	
-	//$result = try_update_sort_manual(&$param);
+	//$result = try_update_sort_manual($param);
 
 	
 
@@ -652,7 +652,7 @@ function jqfn_sort_manual($param) {
 	if ($param['c'] == 'placeafter') {
 		$param['ajp']['callback'] = 'js_sorter_test_callback';
 		// $param['ajp']['elemtoplace'] = 'form_iurel_div';
-		$result = try_update_sort_manual_placeafter(&$param);
+		$result = try_update_sort_manual_placeafter($param);
 		
 		//$out .= outhtml_form_iurel_content($param);
 	}

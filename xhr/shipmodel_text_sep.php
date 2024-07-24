@@ -103,7 +103,7 @@ return $str;
 
 
 // =============================================================================
-function outhtml_shipmodel_text_sep_content(&$param) {
+function outhtml_shipmodel_text_sep_content($param) {
 
 	$out = '';
 	
@@ -131,7 +131,7 @@ function outhtml_shipmodel_text_sep_content(&$param) {
 	
 	if ($param['state'] == 'open') {
 	
-		$out .= outhtml_shipmodel_text_sep_popup(&$param);
+		$out .= outhtml_shipmodel_text_sep_popup($param);
 	
 	}
 	
@@ -183,14 +183,14 @@ function jqfn_shipmodel_text_sep($param) {
 	
 	if ($param['c'] == 'saveandclose') {
 		// $param['ajp']['elemtoplace'] = 'shipmodel_text_sep_div';
-		// $param['html'] = outhtml_shipmodel_text_sep_content(&$param);
+		// $param['html'] = outhtml_shipmodel_text_sep_content($param);
 		// $param['ajp']['doooooooo'] = 'doooooooo';
-		jqfn_shipmodel_text_sep_saveandclose(&$param);
+		jqfn_shipmodel_text_sep_saveandclose($param);
 	}
 
 	
 	$param['ajp']['elemtoplace'] = 'shipmodel_text_sep_div';
-	$param['html'] = outhtml_shipmodel_text_sep_content(&$param);
+	$param['html'] = outhtml_shipmodel_text_sep_content($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 		

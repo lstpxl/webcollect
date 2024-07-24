@@ -242,7 +242,7 @@ function jqfn_item_lettering($param) {
 
 	$out = '';
 
-	$result = try_update_item_lettering(&$param);
+	$result = try_update_item_lettering($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

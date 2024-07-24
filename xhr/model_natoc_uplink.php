@@ -111,7 +111,7 @@ function outhtml_model_natoc_uplink_result($param) {
 // =============================================================================
 function my_model_natoc_uplink_process(&$param) {
 
-	if (!am_i_admin_or_moderator()) return $out;
+	if (!am_i_admin_or_moderator()) return '';
 	
 	//$out .= 'z1';
 
@@ -254,7 +254,7 @@ function try_model_natoc_uplink(&$param) {
 		" SET shipmodel.natoc_id = '".$qr[0]['natoc_id']."' ".
 		" WHERE shipmodel.shipmodel_id = '".$qr[0]['shipmodel_id']."' ". 
 		";";
-	$qru = mydb_query($q);
+	$qres = mydb_query($q);
 	if ($qres === false) {
 		out_silent_error("Ошибка записи в базу данных! (".__FILE__." Line ".__LINE__.")");
 		return false;
@@ -287,7 +287,7 @@ function jqfn_model_natoc_uplink($param) {
 	$param['ajp']['callback'] = 'js_model_natoc_uplink_callback';
 	$param['ajp']['show'] = 'show';
 
-	// try_update_model_natoc_uplink(&$param);
+	// try_update_model_natoc_uplink($param);
 
 	if (!isset($param['i'])) return false;
 	if (!ctype_digit($param['i'])) return false;
@@ -295,12 +295,12 @@ function jqfn_model_natoc_uplink($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'uplink') {
-		try_model_natoc_uplink(&$param);
+		try_model_natoc_uplink($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_model_natoc_uplink_process(&$param);
+	my_model_natoc_uplink_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

@@ -172,7 +172,7 @@ function outhtml_item_notes_div($param) {
 
 
 // =============================================================================
-function try_update_item_notes(&$param) {
+function try_update_item_notes($param) {
 
 	if (!isset($param['i'])) return false;
 	if (!ctype_digit($param['i'])) return false;
@@ -224,7 +224,7 @@ function jqfn_item_notes($param) {
 
 	$out = '';
 
-	$result = try_update_item_notes(&$param);
+	$result = try_update_item_notes($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

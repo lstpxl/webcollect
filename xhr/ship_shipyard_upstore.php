@@ -123,7 +123,7 @@ function outhtml_ship_shipyard_upstore_result($param) {
 // =============================================================================
 function my_ship_shipyard_upstore_process(&$param) {
 
-	if (!can_i_ship_shipyard_upstore($param['i'])) return $out;
+	if (!can_i_ship_shipyard_upstore($param['i'])) return '';
 	
 	//$out .= 'z1';
 
@@ -304,7 +304,7 @@ function jqfn_ship_shipyard_upstore($param) {
 	$param['ajp']['callback'] = 'js_ship_shipyard_upstore_callback';
 	$param['ajp']['show'] = 'show';
 
-	// try_update_ship_shipyard_upstore(&$param);
+	// try_update_ship_shipyard_upstore($param);
 
 	if (!isset($param['i'])) return false;
 	if (!ctype_digit($param['i'])) return false;
@@ -312,12 +312,12 @@ function jqfn_ship_shipyard_upstore($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'upstore') {
-		try_ship_shipyard_upstore(&$param);
+		try_ship_shipyard_upstore($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_ship_shipyard_upstore_process(&$param);
+	my_ship_shipyard_upstore_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

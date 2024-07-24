@@ -99,7 +99,7 @@ function outhtml_help_request_form($param) {
 		
 		$out .= '<input type="hidden" name="m" value="h" />';
 		
-		$out .= '<textarea cols="40" rows="4" class="hoverwhiteborder" style=" width: 552px; text-align: left; font-size: 12px; background-color: '.$color.'; padding: 4px; border-radius: 3px; -moz-border-radius: 3px; " name="question" />'.''.'</textarea>';
+		$out .= '<textarea cols="40" rows="4" class="hoverwhiteborder" style=" width: 552px; text-align: left; font-size: 12px; padding: 4px; border-radius: 3px; -moz-border-radius: 3px; " name="question" />'.''.'</textarea>';
 		
 		$out .= '<p style=" font-size: 10pt; margin-bottom: 3px;  ">';
 		$out .= 'Мы пришлем ответ на ваш адрес электронной почты.';

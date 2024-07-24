@@ -172,7 +172,7 @@ function jqfn_item_itemsettitle($param) {
 	$param['ajp'] = array();
 	
 
-	$result = try_update_item_itemsettitle(&$param);
+	$result = try_update_item_itemsettitle($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 

@@ -356,7 +356,7 @@ function my_model_natoc_input_process(&$param) {
 	if (!isset($param['h'])) $param['h'] = '';
 	if ($param['h'] == 'full') {
 		$param['ajp']['elemtoplace'] = 'model_natoc_input_div';
-		$param['html'] = outhtml_model_natoc_input_result($param);
+		$param['html'] = outhtml_model_natoc_input_content($param);
 	}
 	
 	$param['ajp']['color'] = 'yellow';
@@ -432,12 +432,12 @@ function jqfn_model_natoc_input($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'save') {
-		try_update_model_natoc_input(&$param);
+		try_update_model_natoc_input($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_model_natoc_input_process(&$param);
+	my_model_natoc_input_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

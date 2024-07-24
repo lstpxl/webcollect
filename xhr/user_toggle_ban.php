@@ -200,7 +200,7 @@ function jqfn_user_toggle_ban($param) {
 
 	$out = '';
 
-	try_update_user_toggle_ban(&$param);
+	try_update_user_toggle_ban($param);
 
 	$out .= outhtml_user_toggle_ban_result($param);
 

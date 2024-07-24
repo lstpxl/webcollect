@@ -232,7 +232,7 @@ function outhtml_parse_file_frombatchsrc($param) {
 	
 	*/
 	
-	$r = img_crop_symm_box(&$img_src);
+	$r = img_crop_symm_box($img_src);
 	if (!$r) {
 		$erm = "Ошибка при обрезке изображения! (".__FILE__." Line ".__LINE__.")";
 		my_write_log($erm);
@@ -329,7 +329,7 @@ function outhtml_robo_upload_file(&$param) {
 
 	$out .= '<p style=" color: #808080; ">Created item #'.$item_id.'</p>';
 
-	$str = outhtml_parse_file_frombatchsrc(&$param);
+	$str = outhtml_parse_file_frombatchsrc($param);
 	
 	if ($str != '') {
 		$qr = mydb_query("".
@@ -422,7 +422,7 @@ function outhtml_robo_upload(&$param) {
 		return $out.PHP_EOL;
 	} else {
 		$param['robo_upload_filename'] = $list[0];
-		$out .= outhtml_robo_upload_file(&$param);
+		$out .= outhtml_robo_upload_file($param);
 		return $out.PHP_EOL;
 	}
 }
@@ -463,7 +463,7 @@ function jqfn_robo_upload($param) {
 	$param['robo_upload_success'] = true;
 	$param['i'] = 0;
 	
-	$result = outhtml_robo_upload(&$param);
+	$result = outhtml_robo_upload($param);
 	// $result = 'finished';
 
 	$out .= out_robo_upload_prefix($param['robo_upload_success']);

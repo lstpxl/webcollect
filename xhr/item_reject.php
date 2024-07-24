@@ -140,7 +140,7 @@ function jqfn_item_reject($param) {
 
 	$out = '';
 
-	$result = try_update_item_reject(&$param);
+	$result = try_update_item_reject($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

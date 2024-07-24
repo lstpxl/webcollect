@@ -78,7 +78,7 @@ function outhtml_item_add_image_v2_step_process($param) {
 
 	$p = array();
 	$p['i'] = $param['i'];
-	$result = try_add_item_image(&$p);
+	$result = try_add_item_image($p);
 	
 	if (!$result) {
 		$out .= '<div style=" float: left; width: 530px; padding: 0px 0px 10px 20px; color: #808080; line-height: 125%; ">';

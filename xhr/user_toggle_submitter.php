@@ -200,7 +200,7 @@ function jqfn_user_toggle_submitter($param) {
 
 	$out = '';
 
-	try_update_user_toggle_submitter(&$param);
+	try_update_user_toggle_submitter($param);
 
 	$out .= outhtml_user_toggle_submitter_result($param);
 

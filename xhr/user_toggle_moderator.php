@@ -200,7 +200,7 @@ function jqfn_user_toggle_moderator($param) {
 
 	$out = '';
 
-	try_update_user_toggle_moderator(&$param);
+	try_update_user_toggle_moderator($param);
 
 	$out .= outhtml_user_toggle_moderator_result($param);
 

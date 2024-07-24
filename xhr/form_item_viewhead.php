@@ -77,6 +77,7 @@ return $str;
 // =============================================================================
 function zzzzzzz($param) {
 
+	$out = '';
 				
 					if (am_i_admin()) {
 						$zoomins = '';
@@ -243,7 +244,7 @@ function jqfn_form_item_viewhead($param) {
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	jqfn_form_item_viewhead_process(&$param);
+	jqfn_form_item_viewhead_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

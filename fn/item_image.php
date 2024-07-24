@@ -296,7 +296,7 @@ function try_add_item_image(&$param) {
 	$p['size_limit_px_width'] = 6000;
 	$p['size_limit_px_height'] = 6000;
 	
-	$imgres = process_image_upload(&$p);
+	$imgres = process_image_upload($p);
 	if ($imgres === false) {
 		$param['error_message'] = $p['error_message'];
 		return false;
@@ -324,7 +324,7 @@ function try_add_item_image(&$param) {
 	
 	if ($iswhite) {
 	
-		$tmp = img_crop_symm_lr(&$imgres);
+		$tmp = img_crop_symm_lr($imgres);
 		if ($tmp !== false) {
 			//print 'croplr.';
 			//imagedestroy($imgres);
@@ -335,7 +335,7 @@ function try_add_item_image(&$param) {
 		
 		// print 'check2='.imagesx($imgres).'.';
 		
-		$tmp = img_crop_symm_tb(&$imgres);
+		$tmp = img_crop_symm_tb($imgres);
 		if ($tmp !== false) {
 			//print 'croptd.';
 			// imagedestroy($imgres);

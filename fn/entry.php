@@ -375,6 +375,8 @@ function outhtml_topmenu($param) {
 
 			if ($GLOBALS['is_registered_user']) {
 
+				$str = '';
+
 				$link = '/index.php';
 				$out .= '<form method="GET" enctype="multipart/form-data" action="'.$link.'" style=" display: inline; padding-right: 5px; white-space: nowrap; ">';
 
@@ -1054,12 +1056,12 @@ function myentry() {
 	//my_write_log('Entry line '.__LINE__.'');
 	
 	// проверка что это за пользователь
-	myentry_check_loggedin(&$param);
+	myentry_check_loggedin($param);
 	
 	if (isset($param['action'])) {
 		if ($param['action'] == 'login') {
 			// Попытка аутентификации вводом пароля
-			myentry_try_login(&$param);
+			myentry_try_login($param);
 		}
 	}
 	
@@ -1069,13 +1071,13 @@ function myentry() {
 	
 	if ($GLOBALS['user_id'] == false) {
 		// незарегистрированный посетитель
-		myentry_visitor(&$param);
-		// myentry_firsttime_visitor(&$param);
+		myentry_visitor($param);
+		// myentry_firsttime_visitor($param);
 	}
 	
 	if ($param['logout'] == '1') {
 		// логаут
-		myentry_logout(&$param);
+		myentry_logout($param);
 	} else {
 		unset($param['logout']);
 	}

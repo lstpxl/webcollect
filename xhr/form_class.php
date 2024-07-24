@@ -156,7 +156,7 @@ function jqfn_form_class($param) {
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	jqfn_form_class_process(&$param);
+	jqfn_form_class_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

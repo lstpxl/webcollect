@@ -119,7 +119,7 @@ function outhtml_class_enlist_content($param) {
 // =============================================================================
 function my_class_enlist_process(&$param) {
 
-	if (!am_i_admin_or_moderator()) return $out;
+	if (!am_i_admin_or_moderator()) return '';
 	
 	//$out .= 'z1';
 
@@ -209,12 +209,12 @@ function jqfn_class_enlist($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'enlist') {
-		try_class_enlist(&$param);
+		try_class_enlist($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_class_enlist_process(&$param);
+	my_class_enlist_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

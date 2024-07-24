@@ -231,7 +231,7 @@ function jqfn_form_model($param) {
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	jqfn_form_model_process(&$param);
+	jqfn_form_model_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

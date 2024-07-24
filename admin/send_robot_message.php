@@ -28,7 +28,7 @@ function outhtml_send_robot_message_response(&$param) {
 	if ($param['body'] == '') {
 		$param['c'] = '';
 		$param['error_text'] = 'Пустое сообщение';
-		return outhtml_send_robot_message_response_error(&$param);
+		return outhtml_send_robot_message_response_error($param);
 	}
 
 	$a = array();
@@ -40,7 +40,7 @@ function outhtml_send_robot_message_response(&$param) {
 	if (!$result) {
 		$param['c'] = '';
 		$param['error_text'] = 'Техническая проблема отправки.';
-		return outhtml_send_robot_message_response_error(&$param);
+		return outhtml_send_robot_message_response_error($param);
 	}
 		
 	$out .= '<div style=" margin-top: 40px; margin-bottom: 30px; padding-left: 18px; ">';
@@ -66,6 +66,8 @@ function outhtml_send_robot_message_response(&$param) {
 function outhtml_send_robot_message($param) {
 	
 	$out = '';
+
+	$color = 'white';
 		
 	$out .= '<div style=" margin-top: 40px; margin-bottom: 30px; padding-left: 18px; ">';
 		

@@ -256,11 +256,11 @@ function jqfn_item_extlink($param) {
 	$param['ajp'] = array();
 	$param['ajp']['callback'] = 'js_item_extlink_callback';
 
-	$result = try_update_item_extlink(&$param);
+	$result = try_update_item_extlink($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 
-	jqfn_item_extlink_process(&$param);
+	jqfn_item_extlink_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

@@ -204,6 +204,8 @@ function outhtml_itemset_inlist_block($itemset_id) {
 	
 	$onclickstr = ' item_itemset_use('.$itemset_id.'); return false; ';
 
+	$color = ' gray ';
+
 	// thumb div
 	$out .= '<div style=" float: left; margin-right: 4px; margin-bottom: 10px; width: 48px; ">';
 
@@ -526,7 +528,7 @@ function try_purge_empty_itemsets() {
 		" SELECT DISTINCT itemset_id FROM item ".
 		" ) ".
 		";";
-	$qru = mydb_query($q);
+	$qres = mydb_query($q);
 	if ($qres === false) {
 		out_silent_error("Ошибка записи в базу данных! (".__FILE__." Line ".__LINE__.")");
 		return false;
@@ -779,6 +781,8 @@ function try_item_itemset_select(&$param) {
 // =============================================================================
 function jqfn_item_itemset($param) {
 
+	$out = '';
+
 	if (!am_i_registered_user()) return false;
 	
 	if (!isset($param['i'])) return false;
@@ -795,21 +799,21 @@ function jqfn_item_itemset($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'upstore') {
-		try_item_itemset_upstore(&$param);
+		try_item_itemset_upstore($param);
 	}
 	if ($param['c'] == 'autocomplete') {
-		try_update_item_itemset(&$param);
-		// try_item_itemset_autocomplete(&$param);
+		try_update_item_itemset($param);
+		// try_item_itemset_autocomplete($param);
 	}
 	if ($param['c'] == 'select') {
-		try_item_itemset_select(&$param);
+		try_item_itemset_select($param);
 	}
 	
 	//
 	
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_item_itemset_process(&$param);
+	my_item_itemset_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

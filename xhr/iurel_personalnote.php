@@ -186,7 +186,7 @@ function jqfn_iurel_personalnote($param) {
 	$param['i'] = ''.intval($param['i']);
 	if (my_get_item_status($param['i']) === false) return false;
 
-	$result = try_update_iurel_personalnote(&$param);
+	$result = try_update_iurel_personalnote($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

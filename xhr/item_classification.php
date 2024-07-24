@@ -285,7 +285,7 @@ function jqfn_item_classification($param) {
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	jqfn_item_classification_process(&$param);
+	jqfn_item_classification_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

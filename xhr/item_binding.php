@@ -307,7 +307,7 @@ function jqfn_item_binding($param) {
 
 	$out = '';
 
-	try_update_item_binding(&$param);
+	try_update_item_binding($param);
 
 	$out .= outhtml_item_binding_result($param);
 

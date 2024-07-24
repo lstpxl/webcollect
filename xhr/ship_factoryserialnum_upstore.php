@@ -111,7 +111,7 @@ function outhtml_ship_factoryserialnum_upstore_result($param) {
 // =============================================================================
 function my_ship_factoryserialnum_upstore_process(&$param) {
 
-	if (!am_i_admin_or_moderator()) return $out;
+	if (!am_i_admin_or_moderator()) return '';
 	
 	//$out .= 'z1';
 
@@ -272,7 +272,7 @@ function jqfn_ship_factoryserialnum_upstore($param) {
 	$param['ajp']['callback'] = 'js_ship_factoryserialnum_upstore_callback';
 	$param['ajp']['show'] = 'show';
 
-	// try_update_ship_factoryserialnum_upstore(&$param);
+	// try_update_ship_factoryserialnum_upstore($param);
 
 	if (!isset($param['i'])) return false;
 	if (!ctype_digit($param['i'])) return false;
@@ -280,12 +280,12 @@ function jqfn_ship_factoryserialnum_upstore($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'upstore') {
-		try_ship_factoryserialnum_upstore(&$param);
+		try_ship_factoryserialnum_upstore($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_ship_factoryserialnum_upstore_process(&$param);
+	my_ship_factoryserialnum_upstore_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

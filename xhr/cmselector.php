@@ -541,8 +541,9 @@ function outhtml_cmselector_root_element($type, $id) {
 	$onclick = ' js_shipclass_tree_item_click('.$id.', \''.$type.'\'); return false; ';
 	$onclickexpand = ' js_shipclass_tree_item_click('.$id.', \''.$type.'\'); return false; ';
 	$level = 0;
+	$onexpand = '';
 
-	return outhtml_cmselector_uni_element($str, $onclick, $onclickexpand, $level);
+	return outhtml_cmselector_uni_element($str, $onclick, $onclickexpand, $level,$onexpand);
 }
 
 
@@ -558,7 +559,7 @@ function outhtml_cmselector_tree_element($type, $id, $level = 0) {
 	if (!is_string($type)) return false;
 	if (!in_array($type, $allowedtype)) return false;
 	
-	if (($type == 'shipmodelclass') && ($id == 0)) return outhtml_cmselector_root_element();
+	if (($type == 'shipmodelclass') && ($id == 0)) return outhtml_cmselector_root_element($type, $id);
 	
 	$levelpad = 40;
 	
@@ -1341,7 +1342,7 @@ function outhtml_cmselector_content(&$param) {
 	$param['pn'] = ''.intval($param['pn']);
 	
 	//
-	
+	$a = mb_substr(trim($param['e']), 0, 1);
 	if ($a == 'c') $type = 'shipmodelclass';
 	if ($a == 'm') $type = 'shipmodel';
 	
@@ -1391,9 +1392,9 @@ function outhtml_cmselector_content(&$param) {
 				//
 
 				if ($param['mode'] == 'select') {
-					$out .= outhtml_cmselector_m_select(&$param);
+					$out .= outhtml_cmselector_m_select($param);
 				} else {
-					$out .= outhtml_cmselector_m_search(&$param);
+					$out .= outhtml_cmselector_m_search($param);
 				}
 				
 				//
@@ -1575,7 +1576,7 @@ function jqfn_cmselector_search(&$param) {
 	$param['ajp']['elemtoplace'] = 'cmselector_div';
 	$param['html'] = '';
 	
-	jqfn_cmselector_update(&$param);
+	jqfn_cmselector_update($param);
 	
 	if ($param['q'] == '') {
 		return true;
@@ -1589,9 +1590,9 @@ function jqfn_cmselector_search(&$param) {
 		$param['ajp']['show_uplink'] = 'yes';
 	}
 	
-	$param['html'] .= outhtml_cmselector_content(&$param);
+	$param['html'] .= outhtml_cmselector_content($param);
 	
-	jqfn_cmselector_check_exist(&$param);
+	jqfn_cmselector_check_exist($param);
 	
 	return true;
 }
@@ -1682,7 +1683,7 @@ function jqfn_cmselector($param) {
 	
 	if ($param['c'] == 'out') {
 		$param['ajp']['elemtoplace'] = 'cmselector_div';
-		$param['html'] = outhtml_cmselector_content(&$param);
+		$param['html'] = outhtml_cmselector_content($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');

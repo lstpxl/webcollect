@@ -127,7 +127,7 @@ function jqfn_iurel_gotit($param) {
 	$param['ajp'] = array();
 	
 
-	$result = try_update_iurel_gotit(&$param);
+	$result = try_update_iurel_gotit($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 

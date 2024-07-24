@@ -392,18 +392,18 @@ function jqfn_ship_autocomplete_search(&$param) {
 	$param['ajp']['elemtoplace'] = 'ship_autocomplete_div';
 	$param['html'] = '';
 	
-	jqfn_ship_autocomplete_update(&$param);
+	jqfn_ship_autocomplete_update($param);
 	
 	if ($param['q'] == '') {
 		return true;
 	}
 
 	
-	$param['html'] .= outhtml_ship_autocomplete_content(&$param);
+	$param['html'] .= outhtml_ship_autocomplete_content($param);
 	
 	$param['ajp']['show'] = 'show';
 	
-	jqfn_ship_autocomplete_check_exist(&$param);
+	jqfn_ship_autocomplete_check_exist($param);
 	
 	return true;
 }
@@ -573,15 +573,15 @@ function jqfn_ship_autocomplete($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'search') {
-		jqfn_ship_autocomplete_search(&$param);
+		jqfn_ship_autocomplete_search($param);
 	}
 	if ($param['c'] == 'select') {
-		jqfn_ship_autocomplete_select(&$param);
+		jqfn_ship_autocomplete_select($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	// my_ship_autocomplete_process(&$param);
+	// my_ship_autocomplete_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

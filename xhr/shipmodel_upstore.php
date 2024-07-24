@@ -351,9 +351,9 @@ function outhtml_shipmodel_text_sep_popup(&$param) {
 
 			/*
 			if ($param['mode'] == 'select') {
-				$out .= outhtml_shipmodel_text_sep_m_select(&$param);
+				$out .= outhtml_shipmodel_text_sep_m_select($param);
 			} else {
-				$out .= outhtml_shipmodel_text_sep_m_search(&$param);
+				$out .= outhtml_shipmodel_text_sep_m_search($param);
 			}
 			*/
 			
@@ -440,7 +440,7 @@ function outhtml_shipmodel_upstore_result($param) {
 	$out .= '</div>';
 	
 	if ($param['state'] == 'open') {
-		$out .= outhtml_shipmodel_text_sep_popup(&$param);
+		$out .= outhtml_shipmodel_text_sep_popup($param);
 		$param['ajp']['focusinput'] = 'yes';
 		
 	}
@@ -756,7 +756,7 @@ function jqfn_shipmodel_upstore($param) {
 	$param['ajp']['display'] = 'yes';
 	// $param['ajp']['enable'] = 'enabled';
 
-	// try_update_shipmodel_upstore(&$param);
+	// try_update_shipmodel_upstore($param);
 
 	if (!isset($param['i'])) return false;
 	if (!ctype_digit($param['i'])) return false;
@@ -773,13 +773,13 @@ function jqfn_shipmodel_upstore($param) {
 	if (!isset($param['c'])) $param['c'] = '';
 	
 	if ($param['c'] == 'saveandclose') {
-		jqfn_shipmodel_text_sep_saveandclose(&$param);
-		try_shipmodel_upstore(&$param);
+		jqfn_shipmodel_text_sep_saveandclose($param);
+		try_shipmodel_upstore($param);
 	}
 	
 	/*
 	if ($param['c'] == 'upstore') {
-		try_shipmodel_upstore(&$param);
+		try_shipmodel_upstore($param);
 	}
 	*/
 	
@@ -788,7 +788,7 @@ function jqfn_shipmodel_upstore($param) {
 	header('Content-Type: text/html; charset=utf-8');
 	
 	if ($param['html'] == '') {
-		$param['html'] = outhtml_shipmodel_upstore_result(&$param);
+		$param['html'] = outhtml_shipmodel_upstore_result($param);
 	}
 	
 	$prefixarr = array();

@@ -138,7 +138,7 @@ function outhtml_ship_upstore_content($param) {
 // =============================================================================
 function my_ship_upstore_process(&$param) {
 
-	if (!am_i_admin_or_moderator()) return $out;
+	if (!am_i_admin_or_moderator()) return '';
 	
 	//$out .= 'z1';
 
@@ -347,12 +347,12 @@ function jqfn_ship_upstore($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'upstore') {
-		try_ship_upstore(&$param);
+		try_ship_upstore($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_ship_upstore_process(&$param);
+	my_ship_upstore_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

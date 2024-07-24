@@ -825,7 +825,7 @@ function outhtml_administration_index($param) {
 	
 	$out = '';
 
-	$out .= outhtml_administration_submenu(&$param);
+	$out .= outhtml_administration_submenu($param);
 	
 	if ($param['sm'] == 'a') $out .= outhtml_administration_summary($param);
 	if ($param['sm'] == 'l') $out .= outhtml_administration_logs($param);

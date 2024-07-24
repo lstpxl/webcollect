@@ -173,7 +173,7 @@ function jqfn_item_approve($param) {
 
 	$out = '';
 
-	$result = try_update_item_approve(&$param);
+	$result = try_update_item_approve($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

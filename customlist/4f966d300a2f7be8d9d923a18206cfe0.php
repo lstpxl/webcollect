@@ -119,7 +119,7 @@ function outhtml_item_search_result_customlist_4f966d300a2f7be8d9d923a18206cfe0(
 	
 	//print_r($list);
 	
-	// calc_search_result_rows($param, &$list);
+	// calc_search_result_rows($param, $list);
 	
 	$shipstr = '_';
 	$shipstrfull = '_';

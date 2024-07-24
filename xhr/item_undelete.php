@@ -131,7 +131,7 @@ function jqfn_item_undelete($param) {
 
 	$out = '';
 
-	$result = try_update_item_undelete(&$param);
+	$result = try_update_item_undelete($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

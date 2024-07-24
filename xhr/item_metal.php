@@ -324,7 +324,7 @@ function jqfn_item_metal($param) {
 
 	$out = '';
 
-	try_update_item_metal(&$param);
+	try_update_item_metal($param);
 
 	$out .= outhtml_item_metal_result($param);
 

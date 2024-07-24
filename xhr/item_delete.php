@@ -165,7 +165,7 @@ function jqfn_item_delete($param) {
 
 	$out = '';
 
-	$result = try_update_item_delete(&$param);
+	$result = try_update_item_delete($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

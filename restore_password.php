@@ -6,14 +6,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/fn/welcome_screen.php');
 
 // =============================================================================
 function is_captcha_ok($param) {
-	
-	include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
-	
-	$securimage = new Securimage();
-
-	if ($securimage->check($param['captcha_code']) == false) return false;
-	
-	return true;
+	include_once $_SERVER['DOCUMENT_ROOT'].'/fn/captcha_code.php';
+	$stored_code = get_visitor_captcha();
+	return ($param['captcha_code'] == $stored_code);
 }
 
 
@@ -21,6 +16,8 @@ function is_captcha_ok($param) {
 function outhtml_restore_password_step1(&$param) {
 	
 	$out = '';
+
+	$rqrd = '';
 	
 	$out .= '<div style=" background-color: #f8f8f8; " >';
 	
@@ -56,17 +53,17 @@ function outhtml_restore_password_step1(&$param) {
 				
 				$out .= '<div style=" float: left; width: 251px; margin-top: 23px; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #205326; padding: 2px 12px 3px 12px; border: solid 1px #b0b0b0; background-color: #ffffff; ">';
 			
-					include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
-					$securimage = new Securimage();
+					// include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
+					// $securimage = new Securimage();
 					//$securimage -> code_length = 4;
 					//$securimage -> image_signature = 'webcollect.ru';
 					//$securimage -> signature_color = new Securimage_Color('#000000');
 					
-					$out .= '<img id="captcha" src="/xhr/captcha_image.php" style= " margin-top: 10px; margin-bottom: 10px; display: block; float: left; border-radius: 3px; -moz-border-radius: 3px; " title="Securimage Captcha Script. Copyright &copy; 2011 Drew Phillips" />';
+					$out .= '<img id="captcha" src="/xhr/captcha_image2.php" style= " margin-top: 10px; margin-bottom: 10px; display: block; float: left; border-radius: 3px; -moz-border-radius: 3px; " title="Captcha" />';
 				
 					// $out .= '<img id="captcha" src="/securimage/securimage_show.php" alt="CAPTCHA Image" style= " margin-top: 10px; margin-bottom: 10px; display: block; float: left; border-radius: 3px; -moz-border-radius: 3px; " title="Securimage Captcha Script. Copyright &copy; 2011 Drew Phillips" />';
 				
-					$out .= '<a href="#" title="показать другой код" onclick=" document.getElementById(\'captcha\').src = \'/xhr/captcha_image.php?\' + Math.random(); return false" style=" display: block; width: 16px; height: 16px; float: left; margin: 10px; background-repeat: no-repeat; background-position: 0px 0px; background-image: url(\'/images/arrow_refresh.png\'); " ></a>';
+					$out .= '<a href="#" title="показать другой код" onclick=" document.getElementById(\'captcha\').src = \'/xhr/captcha_image2.php?\' + Math.random(); return false" style=" display: block; width: 16px; height: 16px; float: left; margin: 10px; background-repeat: no-repeat; background-position: 0px 0px; background-image: url(\'/images/arrow_refresh.png\'); " ></a>';
 				
 					$out .= '<div style=" clear: both; "></div>';
 			
@@ -113,6 +110,8 @@ function outhtml_restore_password_step1(&$param) {
 function outhtml_restore_password_step2(&$param) {
 	
 	$out = '';
+
+	$rqrd = '';
 	
 	$param['formfail'] = array();
 	
@@ -139,7 +138,7 @@ function outhtml_restore_password_step2(&$param) {
 	}
 	
 	if (sizeof($param['formfail']) > 0) {
-		return outhtml_restore_password_step1(&$param);
+		return outhtml_restore_password_step1($param);
 	}
 	
 	//
@@ -173,17 +172,17 @@ function outhtml_restore_password_step2(&$param) {
 				
 				$out .= '<div style=" float: left; width: 251px; margin-top: 23px; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #205326; padding: 2px 12px 3px 12px; border: solid 1px #b0b0b0; background-color: #ffffff; ">';
 			
-					include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
-					$securimage = new Securimage();
+					// include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
+					// $securimage = new Securimage();
 					//$securimage -> code_length = 4;
 					//$securimage -> image_signature = 'webcollect.ru';
 					//$securimage -> signature_color = new Securimage_Color('#000000');
 					
-					$out .= '<img id="captcha" src="/xhr/captcha_image.php" style= " margin-top: 10px; margin-bottom: 10px; display: block; float: left; border-radius: 3px; -moz-border-radius: 3px; " title="Securimage Captcha Script. Copyright &copy; 2011 Drew Phillips" />';
+					$out .= '<img id="captcha" src="/xhr/captcha_image2.php" style= " margin-top: 10px; margin-bottom: 10px; display: block; float: left; border-radius: 3px; -moz-border-radius: 3px; " title="Captcha" />';
 				
 					// $out .= '<img id="captcha" src="/securimage/securimage_show.php" alt="CAPTCHA Image" style= " margin-top: 10px; margin-bottom: 10px; display: block; float: left; border-radius: 3px; -moz-border-radius: 3px; " title="Securimage Captcha Script. Copyright &copy; 2011 Drew Phillips" />';
 				
-					$out .= '<a href="#" title="показать другой код" onclick=" document.getElementById(\'captcha\').src = \'/xhr/captcha_image.php?\' + Math.random(); return false" style=" display: block; width: 16px; height: 16px; float: left; margin: 10px; background-repeat: no-repeat; background-position: 0px 0px; background-image: url(\'/images/arrow_refresh.png\'); " ></a>';
+					$out .= '<a href="#" title="показать другой код" onclick=" document.getElementById(\'captcha\').src = \'/xhr/captcha_image2.php?\' + Math.random(); return false" style=" display: block; width: 16px; height: 16px; float: left; margin: 10px; background-repeat: no-repeat; background-position: 0px 0px; background-image: url(\'/images/arrow_refresh.png\'); " ></a>';
 				
 					$out .= '<div style=" clear: both; "></div>';
 			

@@ -185,7 +185,7 @@ function jqfn_iurel_storageplace($param) {
 	$param['i'] = ''.intval($param['i']);
 	if (my_get_item_status($param['i']) === false) return false;
 
-	$result = try_update_iurel_storageplace(&$param);
+	$result = try_update_iurel_storageplace($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

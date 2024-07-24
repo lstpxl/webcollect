@@ -200,7 +200,7 @@ function jqfn_user_toggle_admin($param) {
 
 	$out = '';
 
-	try_update_user_toggle_admin(&$param);
+	try_update_user_toggle_admin($param);
 
 	$out .= outhtml_user_toggle_admin_result($param);
 

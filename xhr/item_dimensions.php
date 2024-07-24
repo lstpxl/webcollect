@@ -285,7 +285,7 @@ function jqfn_item_dimensions($param) {
 
 	$out = '';
 
-	$result = try_update_item_dimensions(&$param);
+	$result = try_update_item_dimensions($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

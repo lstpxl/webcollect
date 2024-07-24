@@ -159,7 +159,7 @@ function jqfn_iurel_sellit_picto($param) {
 	$param['i'] = ''.intval($param['i']);
 	if (my_get_item_status($param['i']) === false) return false;
 
-	$result = try_update_iurel_sellit_picto(&$param);
+	$result = try_update_iurel_sellit_picto($param);
 
 	/*
 	$out .= outhtml_iurel_sellit_picto_result($param);

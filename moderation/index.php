@@ -34,6 +34,7 @@ function outhtml_item_serie($itemset_id) {
 	
 	$z = sizeof($qr);
 
+	$out = '';
 	$out .= '<div style=" margin-left: 18px; margin-bottom: 20px; " >знаков: <span style=" color: #66737b; ">'.sizeof($qr).'<span></div>';
 	
 	if (sizeof($qr) < 1) {
@@ -664,7 +665,7 @@ function outhtml_moderation_index($param) {
 	
 	$out = '';
 	
-	$out .= outhtml_moderation_submenu(&$param);
+	$out .= outhtml_moderation_submenu($param);
 	
 	if ($param['sm'] == 'w') $out .= outhtml_moderation_waiting($param);
 	if ($param['sm'] == 'i') $out .= outhtml_moderation_atinput($param);

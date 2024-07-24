@@ -450,7 +450,7 @@ function try_update_item_shipclass(&$param) {
 	
 	if (isset($param['c'])) {
 		if ($param['c'] == 'store') {
-			try_store_item_shipclass(&$param);
+			try_store_item_shipclass($param);
 		}
 	}
 	
@@ -580,8 +580,8 @@ function jqfn_shipclass_sel($param) {
 	
 	} elseif ($param['c'] == 'selector') {
 	
-		// $r = try_goup_item_shipclass(&$param);
-		$r = try_update_item_shipclass(&$param);
+		// $r = try_goup_item_shipclass($param);
+		$r = try_update_item_shipclass($param);
 		if ($r) {
 			$out .= '<!--';
 			$out .= 'blockid=shipclass_sel_div;';
@@ -599,7 +599,7 @@ function jqfn_shipclass_sel($param) {
 		
 	} elseif ($param['c'] == 'goup') {
 	
-		$r = try_goup_item_shipclass(&$param);
+		$r = try_goup_item_shipclass($param);
 		if ($r) {
 			$out .= '<!--';
 			$out .= 'blockid=shipclass_sel_div;';
@@ -614,7 +614,7 @@ function jqfn_shipclass_sel($param) {
 	
 	} else {
 
-		try_update_item_shipclass(&$param);
+		try_update_item_shipclass($param);
 
 		// if (!isset($param['str'])) return false;
 		// if ($param['str'] == '') return false;

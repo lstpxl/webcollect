@@ -200,7 +200,7 @@ function jqfn_user_toggle_lim_moderator($param) {
 
 	$out = '';
 
-	try_update_user_toggle_lim_moderator(&$param);
+	try_update_user_toggle_lim_moderator($param);
 
 	$out .= outhtml_user_toggle_lim_moderator_result($param);
 

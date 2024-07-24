@@ -369,12 +369,12 @@ function jqfn_form_item_status_action($param) {
 	if (!isset($param['c'])) $param['c'] = '';
 	
 	if ($param['c'] != '') {
-		jqfn_form_item_status_action_try_modify(&$param);
+		jqfn_form_item_status_action_try_modify($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	jqfn_form_item_status_action_process(&$param);
+	jqfn_form_item_status_action_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

@@ -407,12 +407,12 @@ function jqfn_ship_factoryserialnum_input($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'save') {
-		try_update_ship_factoryserialnum_input(&$param);
+		try_update_ship_factoryserialnum_input($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_ship_factoryserialnum_input_process(&$param);
+	my_ship_factoryserialnum_input_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

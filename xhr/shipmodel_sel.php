@@ -528,7 +528,7 @@ function jqfn_shipmodel_sel($param) {
 
 	$out = '';
 
-	//try_update_item_shipmodel(&$param);
+	//try_update_item_shipmodel($param);
 
 	if (!isset($param['str'])) return false;
 	if ($param['str'] == '') return false;

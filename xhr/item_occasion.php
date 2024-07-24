@@ -93,7 +93,7 @@ function my_get_occasion_list() {
 		"");
 	if ($qr === false) {
 		out_silent_error("Ошибка! (".__FILE__." Line ".__LINE__.")");
-		return $out;
+		return [];
 	}
 	
 	return $qr;
@@ -231,7 +231,7 @@ function jqfn_item_occasion($param) {
 	// $param['ajp']['elemtoplace'] = 'item_occasion_div';
 	$param['ajp']['callback'] = 'js_item_occasion_callback';
 
-	// try_update_item_occasion(&$param);
+	// try_update_item_occasion($param);
 
 	if (!isset($param['i'])) return false;
 	if (!ctype_digit($param['i'])) return false;
@@ -239,12 +239,12 @@ function jqfn_item_occasion($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'save') {
-		try_modify_item_occasion(&$param);
+		try_modify_item_occasion($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	jqfn_item_occasion_process(&$param);
+	jqfn_item_occasion_process($param);
 	
 	$out .= ajax_encode_prefix($param['ajp']);
 	

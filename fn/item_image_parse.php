@@ -113,7 +113,7 @@ function outhtml_parse_file($param) {
 	
 	if ($iswhite) {
 	
-		$tmp = img_crop_symm_lr(&$img_src);
+		$tmp = img_crop_symm_lr($img_src);
 		if ($tmp !== false) {
 			//print 'croplr.';
 			//imagedestroy($img_src);
@@ -124,7 +124,7 @@ function outhtml_parse_file($param) {
 		
 		// print 'check2='.imagesx($img_src).'.';
 		
-		$tmp = img_crop_symm_tb(&$img_src);
+		$tmp = img_crop_symm_tb($img_src);
 		if ($tmp !== false) {
 			//print 'croptd.';
 			// imagedestroy($img_src);
@@ -239,7 +239,7 @@ function outhtml_parse_blueprint($param) {
 	
 	// process opacity here
 	
-	$tmp = img_make_transparent(&$img_src, true);
+	$tmp = img_make_transparent($img_src, true);
 	if ($tmp !== false) {
 		//print 'croplr.';
 		//imagedestroy($img_src);

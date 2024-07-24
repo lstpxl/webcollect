@@ -200,7 +200,7 @@ function jqfn_user_toggle_vipcollector($param) {
 
 	$out = '';
 
-	try_update_user_toggle_vipcollector(&$param);
+	try_update_user_toggle_vipcollector($param);
 
 	$out .= outhtml_user_toggle_vipcollector_result($param);
 

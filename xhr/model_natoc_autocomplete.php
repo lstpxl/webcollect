@@ -434,7 +434,7 @@ function jqfn_model_natoc_autocomplete_search(&$param) {
 	$param['ajp']['elemtoplace'] = 'model_natoc_autocomplete_div';
 	$param['html'] = '';
 	
-	jqfn_model_natoc_autocomplete_update(&$param);
+	jqfn_model_natoc_autocomplete_update($param);
 	
 	if ($param['q'] == '') {
 		return true;
@@ -448,9 +448,9 @@ function jqfn_model_natoc_autocomplete_search(&$param) {
 		$param['ajp']['show_uplink'] = 'yes';
 	}
 	
-	$param['html'] .= outhtml_model_natoc_autocomplete_content(&$param);
+	$param['html'] .= outhtml_model_natoc_autocomplete_content($param);
 	
-	jqfn_model_natoc_autocomplete_check_exist(&$param);
+	jqfn_model_natoc_autocomplete_check_exist($param);
 	
 	return true;
 }
@@ -546,15 +546,15 @@ function jqfn_model_natoc_autocomplete($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'search') {
-		jqfn_model_natoc_autocomplete_search(&$param);
+		jqfn_model_natoc_autocomplete_search($param);
 	}
 	if ($param['c'] == 'select') {
-		jqfn_model_natoc_autocomplete_select(&$param);
+		jqfn_model_natoc_autocomplete_select($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	// my_model_natoc_autocomplete_process(&$param);
+	// my_model_natoc_autocomplete_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

@@ -308,7 +308,7 @@ function jqfn_item_enamel($param) {
 
 	$out = '';
 
-	try_update_item_enamel(&$param);
+	try_update_item_enamel($param);
 
 	$out .= outhtml_item_enamel_result($param);
 

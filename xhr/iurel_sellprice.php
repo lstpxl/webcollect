@@ -217,7 +217,7 @@ function jqfn_iurel_sellprice($param) {
 	
 	$param['ajp'] = array();
 	
-	$result = try_update_iurel_sellprice(&$param);
+	$result = try_update_iurel_sellprice($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 
@@ -228,16 +228,16 @@ function jqfn_iurel_sellprice($param) {
 		$param['ajp']['callback'] = 'js_form_iurel_callback';
 		$param['ajp']['elemtoplace'] = 'form_iurel_div';
 		$out .= ajax_encode_prefix($param['ajp']);
-		$out .= outhtml_form_iurel_content(&$param);
+		$out .= outhtml_form_iurel_content($param);
 	} else {
 		if ($param['h'] == 'full') {
 			$param['ajp']['callback'] = 'js_iurel_sellprice_callback';
 			$param['ajp']['elemtoplace'] = 'iurel_sellprice_div';
 			$out .= ajax_encode_prefix($param['ajp']);
-			$out .= outhtml_iurel_sellprice_result(&$param);
+			$out .= outhtml_iurel_sellprice_result($param);
 		} else {
 			$param['ajp']['callback'] = 'js_iurel_sellprice_callback';
-			process_iurel_sellprice_result(&$param);
+			process_iurel_sellprice_result($param);
 			$out .= ajax_encode_prefix($param['ajp']);
 		}
 	}

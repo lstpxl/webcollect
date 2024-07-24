@@ -349,15 +349,15 @@ function jqfn_form_correction($param) {
 	if (!isset($param['c'])) $param['c'] = '';
 	
 	if ($param['c'] == 'add') {
-		jqfn_form_correction_try_add(&$param);
+		jqfn_form_correction_try_add($param);
 	}
 	if ($param['c'] == 'remove') {
-		jqfn_form_correction_try_remove(&$param);
+		jqfn_form_correction_try_remove($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	jqfn_form_correction_process(&$param);
+	jqfn_form_correction_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

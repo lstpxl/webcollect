@@ -629,7 +629,7 @@ function try_update_item_ship(&$param) {
 		if ($param['c'] == 'store') {
 		
 			
-			try_store_item_ship(&$param);
+			try_store_item_ship($param);
 		}
 	}
 	
@@ -741,7 +741,7 @@ function jqfn_ship_sel($param) {
 	
 	$param['stored'] = '0';
 	
-	try_update_item_ship(&$param);
+	try_update_item_ship($param);
 
 	if (isset($param['c'])) {
 		if ($param['c'] == 'nosuggest') {

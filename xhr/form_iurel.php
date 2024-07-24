@@ -291,7 +291,7 @@ function jqfn_form_iurel($param) {
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	jqfn_form_iurel_process(&$param);
+	jqfn_form_iurel_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

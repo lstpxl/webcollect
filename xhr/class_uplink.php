@@ -102,7 +102,7 @@ function outhtml_class_uplink_result($param) {
 // =============================================================================
 function my_class_uplink_process(&$param) {
 
-	if (!am_i_admin_or_moderator()) return $out;
+	if (!am_i_admin_or_moderator()) return '';
 	
 	//$out .= 'z1';
 
@@ -379,12 +379,12 @@ function jqfn_class_uplink($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'uplink') {
-		try_class_uplink(&$param);
+		try_class_uplink($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_class_uplink_process(&$param);
+	my_class_uplink_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

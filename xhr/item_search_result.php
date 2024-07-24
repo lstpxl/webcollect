@@ -680,6 +680,8 @@ function get_item_search_result_page_size() {
 // =============================================================================
 function outhtml_item_search_result_paginator($param, $total) {
 
+	$out = '';
+
 	if (!isset($param['pn'])) $param['pn'] = 0;
 	if (!ctype_digit($param['pn'])) $param['pn'] = 0;
 	
@@ -1136,7 +1138,7 @@ function get_item_search_query_where($param, &$qd) {
 	
 	//print $qd['where'];
 	
-	return $q;
+	return $qd;
 }
 
 
@@ -1145,7 +1147,7 @@ function get_item_search_result_count($param) {
 
 	$qd = array('q' => '', 'p' => array(), 'l' => '');
 	
-	$wq = get_item_search_query_where($param, &$qd);
+	$wq = get_item_search_query_where($param, $qd);
 	
 	$qd['q'] = "".
 		" SELECT COUNT( DISTINCT item.item_id ) AS n ".
@@ -1213,7 +1215,7 @@ function get_item_search_result_list($param) {
 	
 	$qd = array('q' => '', 'p' => array(), 'l' => '');
 
-	$wq = get_item_search_query_where($param, &$qd);
+	$wq = get_item_search_query_where($param, $qd);
 	
 	//
 
@@ -1268,7 +1270,7 @@ function get_item_search_result_list($param) {
 
 // =============================================================================
 /*
-function calc_search_result_rows(&$param, &$list) {
+function calc_search_result_rows($param, $list) {
 
 	for ($i = 0; $i < sizeof($list); $i++) {
 		$list[$i]['prefix_model'] = false;
@@ -1485,7 +1487,7 @@ function outhtml_item_search_result($param) {
 
 	// sidebar
 	$out .= '<div id="searchbarenv" style=" ">';
-		$out .= outhtml_item_list_searchbar(&$param);
+		$out .= outhtml_item_list_searchbar($param);
 		$GLOBALS['body_script_str'] .= outhtml_script_searchbar_slide();
 	$out .= '</div>';
 	
@@ -1527,7 +1529,7 @@ function outhtml_item_search_result($param) {
 	
 	//print_r($list);
 	
-	// calc_search_result_rows($param, &$list);
+	// calc_search_result_rows($param, $list);
 	
 	$shipstr = '_';
 	$shipstrfull = '_';

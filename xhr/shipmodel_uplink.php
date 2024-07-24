@@ -298,7 +298,7 @@ function jqfn_shipmodel_uplink($param) {
 	$param['ajp']['display'] = 'yes';
 	// $param['ajp']['enable'] = 'enabled';
 
-	// try_update_shipmodel_uplink(&$param);
+	// try_update_shipmodel_uplink($param);
 
 	if (!isset($param['i'])) return false;
 	if (!ctype_digit($param['i'])) return false;
@@ -306,7 +306,7 @@ function jqfn_shipmodel_uplink($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'uplink') {
-		try_shipmodel_uplink(&$param);
+		try_shipmodel_uplink($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');

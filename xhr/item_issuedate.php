@@ -270,7 +270,7 @@ function jqfn_item_issuedate($param) {
 
 	$out = '';
 
-	$result = try_update_item_issuedate(&$param);
+	$result = try_update_item_issuedate($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

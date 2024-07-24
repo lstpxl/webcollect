@@ -1816,16 +1816,16 @@ function outhtml_shipclass_tree_result($param) {
 	
 	if (isset($param['c'])) {
 		if ($param['c'] == 'addshipmodelclass') {
-			$out .= outhtml_shipclass_tree_try_add_class(&$param);
+			$out .= outhtml_shipclass_tree_try_add_class($param);
 		}
 		if ($param['c'] == 'addshipmodel') {
-			$out .= outhtml_shipclass_tree_try_add_model(&$param);
+			$out .= outhtml_shipclass_tree_try_add_model($param);
 		}
 		if ($param['c'] == 'rebuild') {
-			$out .= outhtml_shipclass_tree_result_rebuild_struct(&$param);
+			$out .= outhtml_shipclass_tree_result_rebuild_struct($param);
 		}
 		if ($param['c'] == 'rebuildrandom') {
-			$out .= outhtml_shipclass_tree_result_rebuild_random(&$param);
+			$out .= outhtml_shipclass_tree_result_rebuild_random($param);
 		}
 	}
 	

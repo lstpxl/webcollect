@@ -277,7 +277,7 @@ function jqfn_item_patch($param) {
 
 	$out = '';
 
-	try_update_item_patch(&$param);
+	try_update_item_patch($param);
 
 	$out .= outhtml_item_patch_result($param);
 

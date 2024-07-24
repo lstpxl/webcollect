@@ -10,7 +10,8 @@ function dwordize($str) {
 
 
 // =============================================================================
-function imagecreatefrombmp($filename) {
+// php has its own function imagecreatefrombmp(string $filename): GdImage|false
+function imagecreatefrombmp_custom($filename) {
 	
 	$f = fopen($filename, "rb");
 

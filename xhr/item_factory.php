@@ -353,7 +353,7 @@ function my_beautify_item_factory_str($str) {
 
 
 // =============================================================================
-function try_store_item_factory(&$param) {
+function try_store_item_factory($param) {
 
 	//my_write_log('try_store_item_factory line '.__LINE__.'');
 
@@ -483,7 +483,7 @@ function try_update_item_factory(&$param) {
 	
 	if (isset($param['c'])) {
 		if ($param['c'] == 'store') {
-			try_store_item_factory(&$param);
+			try_store_item_factory($param);
 		}
 	}
 	
@@ -518,7 +518,7 @@ function jqfn_item_factory($param) {
 
 	$out = '';
 
-	try_update_item_factory(&$param);
+	try_update_item_factory($param);
 
 	if (!isset($param['str'])) return false;
 	if ($param['str'] == '') return false;

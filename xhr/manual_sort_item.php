@@ -217,7 +217,7 @@ function jqfn_manual_sort_item($param) {
 	$param['ajp'] = array();
 	
 
-	//$result = try_update_manual_sort_item(&$param);
+	//$result = try_update_manual_sort_item($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 
@@ -227,7 +227,7 @@ function jqfn_manual_sort_item($param) {
 	if ($param['c'] == 'placeafter') {
 		$param['ajp']['callback'] = 'js_sorter_test_callback';
 		// $param['ajp']['elemtoplace'] = 'form_iurel_div';
-		$result = try_update_manual_sort_item_placeafter(&$param);
+		$result = try_update_manual_sort_item_placeafter($param);
 		$out .= ajax_encode_prefix($param['ajp']);
 		//$out .= outhtml_form_iurel_content($param);
 	}

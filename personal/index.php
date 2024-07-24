@@ -534,7 +534,7 @@ function outhtml_personal_index($param) {
 	
 	$out = '';
 
-	$out .= outhtml_personal_submenu(&$param);
+	$out .= outhtml_personal_submenu($param);
 	
 	if ($param['sm'] == 'c') $out .= outhtml_personal_collection($param);
 	if ($param['sm'] == 'p') $out .= outhtml_personal_passwordchange($param);

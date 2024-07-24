@@ -364,7 +364,7 @@ function outhtml_class_autocomplete_div($param) {
 		if (isset($param['full_enlist'])) {
 			if ($param['full_enlist'] == 'yes') {
 				$d = $param;
-				jqfn_class_autocomplete_enlist(&$d);
+				jqfn_class_autocomplete_enlist($d);
 				$out .= $d['html'];
 			}
 		}
@@ -529,12 +529,12 @@ function jqfn_class_autocomplete_search(&$param) {
 
 	//
 
-	jqfn_class_autocomplete_update(&$param);
+	jqfn_class_autocomplete_update($param);
 	
-	jqfn_class_autocomplete_check_exist(&$param);
+	jqfn_class_autocomplete_check_exist($param);
 	
 	//
-
+	$out = '';
 	$out .= '<div style=" padding-top: 3px; ">';
 
 		// list
@@ -701,22 +701,22 @@ function jqfn_class_autocomplete($param) {
 	if (!isset($param['c'])) $param['c'] = '';
 
 	if ($param['c'] == 'search') {
-		jqfn_class_autocomplete_search(&$param);
+		jqfn_class_autocomplete_search($param);
 	}
 
 	if ($param['c'] == 'enlist') {
-		jqfn_class_autocomplete_enlist(&$param);
+		jqfn_class_autocomplete_enlist($param);
 		$param['ajp']['show_enlist_button'] = 'no';
 	}
 
 	if ($param['c'] == 'select') {
-		jqfn_class_autocomplete_select(&$param);
+		jqfn_class_autocomplete_select($param);
 		$param['ajp']['show_enlist_button'] = 'no';
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	// my_class_autocomplete_process(&$param);
+	// my_class_autocomplete_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

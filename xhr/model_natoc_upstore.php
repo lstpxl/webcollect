@@ -123,7 +123,7 @@ function outhtml_model_natoc_upstore_result($param) {
 // =============================================================================
 function my_model_natoc_upstore_process(&$param) {
 
-	if (!can_i_model_natoc_upstore($param)) return $out;
+	if (!can_i_model_natoc_upstore($param)) return '';
 	
 	//$out .= 'z1';
 
@@ -346,7 +346,7 @@ function jqfn_model_natoc_upstore($param) {
 	$param['ajp']['callback'] = 'js_model_natoc_upstore_callback';
 	$param['ajp']['show'] = 'show';
 
-	// try_update_model_natoc_upstore(&$param);
+	// try_update_model_natoc_upstore($param);
 
 	if (!isset($param['i'])) return false;
 	if (!ctype_digit($param['i'])) return false;
@@ -354,12 +354,12 @@ function jqfn_model_natoc_upstore($param) {
 	
 	if (!isset($param['c'])) $param['c'] = '';
 	if ($param['c'] == 'upstore') {
-		try_model_natoc_upstore(&$param);
+		try_model_natoc_upstore($param);
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
 	
-	my_model_natoc_upstore_process(&$param);
+	my_model_natoc_upstore_process($param);
 		
 	$out .= ajax_encode_prefix($param['ajp']);
 	

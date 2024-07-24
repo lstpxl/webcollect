@@ -140,7 +140,7 @@ function jqfn_item_saveinput($param) {
 
 	$out = '';
 
-	$result = try_update_item_saveinput(&$param);
+	$result = try_update_item_saveinput($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 	

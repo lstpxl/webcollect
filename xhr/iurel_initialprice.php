@@ -217,7 +217,7 @@ function jqfn_iurel_initialprice($param) {
 	
 	$param['ajp'] = array();
 	
-	$result = try_update_iurel_initialprice(&$param);
+	$result = try_update_iurel_initialprice($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 
@@ -228,16 +228,16 @@ function jqfn_iurel_initialprice($param) {
 		$param['ajp']['callback'] = 'js_form_iurel_callback';
 		$param['ajp']['elemtoplace'] = 'form_iurel_div';
 		$out .= ajax_encode_prefix($param['ajp']);
-		$out .= outhtml_form_iurel_content(&$param);
+		$out .= outhtml_form_iurel_content($param);
 	} else {
 		if ($param['h'] == 'full') {
 			$param['ajp']['callback'] = 'js_iurel_initialprice_callback';
 			$param['ajp']['elemtoplace'] = 'iurel_initialprice_div';
 			$out .= ajax_encode_prefix($param['ajp']);
-			$out .= outhtml_iurel_initialprice_result(&$param);
+			$out .= outhtml_iurel_initialprice_result($param);
 		} else {
 			$param['ajp']['callback'] = 'js_iurel_initialprice_callback';
-			process_iurel_initialprice_result(&$param);
+			process_iurel_initialprice_result($param);
 			$out .= ajax_encode_prefix($param['ajp']);
 		}
 	}

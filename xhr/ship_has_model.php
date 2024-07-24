@@ -231,7 +231,7 @@ function try_update_ship_has_model(&$param) {
 	
 	if ($ship_id > 0) {
 	
-		if (can_i_uplink_ship_hasmodel($item_id)) {
+		if (can_i_uplink_ship_hasmodel($param['i'])) {
 	
 			// prepared query
 			$a = array();
@@ -280,7 +280,7 @@ function jqfn_ship_has_model($param) {
 	$param['ajp'] = array();
 	
 
-	$result = try_update_ship_has_model(&$param);
+	$result = try_update_ship_has_model($param);
 
 	header('Content-Type: text/html; charset=utf-8');
 
