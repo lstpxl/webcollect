@@ -104,7 +104,7 @@ return <<<SCRIPTSTRING
   gtag('js', new Date());
 
   gtag('config', 'G-EMJ0NGFW0Q');
-</script>'
+</script>
 SCRIPTSTRING;
 }
 
@@ -130,6 +130,8 @@ function outhtml_head($param) {
 	$out .= '<link rel="apple-touch-icon" sizes="144x144" href="/images/touch-icon-iphone-ipad-144px.png" />'.PHP_EOL;
 	
 	$out .= "<link rel='stylesheet' href='".'/base.css'."' type='text/css'>".PHP_EOL;
+
+	$out .= '<meta name="description" content="Каталог знаков кораблей России и СССР. Сервис для коллекционеров значков и знаков морской и кораблестроительной тематики. Полный список.">'.PHP_EOL;
 	
 	// $out .= '<script src="/jquery-1.9.1.js"></script>';
 	foreach ($GLOBALS['head_scripts'] as $scripturl) {
