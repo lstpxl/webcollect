@@ -17,30 +17,35 @@ function outhtml_help_request_form_response_error(&$param) {
 	return $out.PHP_EOL;
 }
 
-
+function is_captcha_ok($param) {
+	include_once $_SERVER['DOCUMENT_ROOT'].'/fn/captcha_code.php';
+	$stored_code = get_user_captcha();
+	return ($param['captcha_code'] == $stored_code);
+}
 
 // =============================================================================
 function outhtml_help_request_form_response(&$param) {
 
 	$out = '';
 	
-	include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
-	$securimage = new Securimage();
-	$securimage -> code_length = 4;
-	$img -> image_signature = 'webcollect.ru';
-	$img -> signature_color = new Securimage_Color('#000000');
+	// include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
+	// $securimage = new Securimage();
+	// $securimage -> code_length = 4;
+	// $img -> image_signature = 'webcollect.ru';
+	// $img -> signature_color = new Securimage_Color('#000000');
 
-	if ($securimage->check($param['captcha_code']) == false) {
+	// if ($securimage->check($param['captcha_code']) == false) {
+	if (!is_captcha_ok($param)) {
 		$param['c'] = '';
 		$param['error_text'] = 'Ошибка кода captcha';
-		return outhtml_help_request_form_response_error(&$param);
+		return outhtml_help_request_form_response_error($param);
 	}
 	
 	$param['question'] = trim($param['question']);
 	if ($param['question'] == '') {
 		$param['c'] = '';
 		$param['error_text'] = 'Пустое сообщение';
-		return outhtml_help_request_form_response_error(&$param);
+		return outhtml_help_request_form_response_error($param);
 	}
 
 	$a = array();
@@ -52,7 +57,7 @@ function outhtml_help_request_form_response(&$param) {
 	if (!$result) {
 		$param['c'] = '';
 		$param['error_text'] = 'Техническая проблема отправки.';
-		return outhtml_help_request_form_response_error(&$param);
+		return outhtml_help_request_form_response_error($param);
 	}
 		
 	$out .= '<div style=" margin-top: 40px; margin-bottom: 30px; padding-left: 18px; ">';
@@ -104,15 +109,15 @@ function outhtml_help_request_form($param) {
 		
 		$out .= '<div style=" width: 536px; border: solid 1px #b0b0b0; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #205326; padding: 2px 12px 3px 12px; min-width: 130px; ">';
 		
-			include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
-			$securimage = new Securimage();
-			$securimage -> code_length = 4;
-			$securimage -> image_signature = 'webcollect.ru';
-			$securimage -> signature_color = new Securimage_Color('#000000');
+			// include_once $_SERVER['DOCUMENT_ROOT'].'/securimage/securimage.php';
+			// $securimage = new Securimage();
+			// $securimage -> code_length = 4;
+			// $securimage -> image_signature = 'webcollect.ru';
+			// $securimage -> signature_color = new Securimage_Color('#000000');
 			
-			$out .= '<img id="captcha" src="/xhr/captcha_image.php" alt="CAPTCHA Image" style= " margin-top: 10px; margin-bottom: 10px; display: block; float: left; " title="Securimage Captcha Script. Copyright &copy; 2011 Drew Phillips" />';
+			$out .= '<img id="captcha" src="/xhr/captcha_image2.php" alt="CAPTCHA Image" style= " margin-top: 10px; margin-bottom: 10px; display: block; float: left; " title="Captcha" />';
 			
-			$out .= '<a href="#" title="показать другой код" onclick="document.getElementById(\'captcha\').src = \'/xhr/captcha_image.php?\' + Math.random(); return false" style=" display: block; width: 16px; height: 16px; float: left; margin: 10px; background-repeat: no-repeat; background-position: 0px 0px; background-image: url(\'/images/arrow_refresh.png\'); " ></a>';
+			$out .= '<a href="#" title="показать другой код" onclick="document.getElementById(\'captcha\').src = \'/xhr/captcha_image2.php?\' + Math.random(); return false" style=" display: block; width: 16px; height: 16px; float: left; margin: 10px; background-repeat: no-repeat; background-position: 0px 0px; background-image: url(\'/images/arrow_refresh.png\'); " ></a>';
 			
 			$out .= '<input type="text" class="hoverwhiteborder"  name="captcha_code" size="10" maxlength="6" style=" float: right; margin: 10px;  border-radius: 3px; -moz-border-radius: 3px; padding: 4px 12px 5px 12px;  min-width: 104px;  " />';
 			
