@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: wkh.mysql
--- Generation Time: Jul 22, 2024 at 05:12 PM
+-- Generation Time: Jul 24, 2024 at 03:42 PM
 -- Server version: 5.6.51-91.0
 -- PHP Version: 7.4.20
 
@@ -90,7 +90,7 @@ CREATE TABLE `factory` (
 -- Table structure for table `item`
 --
 -- Creation: Oct 06, 2022 at 04:12 AM
--- Last update: Sep 17, 2023 at 03:44 PM
+-- Last update: Jul 24, 2024 at 03:41 PM
 -- Last check: Oct 06, 2022 at 04:12 AM
 --
 
@@ -168,7 +168,7 @@ CREATE TABLE `itemset` (
 -- Table structure for table `iurel`
 --
 -- Creation: Oct 06, 2022 at 04:12 AM
--- Last update: Jul 06, 2024 at 01:34 PM
+-- Last update: Jul 24, 2024 at 03:20 PM
 -- Last check: Jan 21, 2024 at 05:02 AM
 --
 
@@ -193,7 +193,7 @@ CREATE TABLE `iurel` (
 -- Table structure for table `log`
 --
 -- Creation: Oct 06, 2022 at 04:12 AM
--- Last update: Jul 22, 2024 at 04:55 PM
+-- Last update: Jul 24, 2024 at 03:41 PM
 -- Last check: Jan 21, 2024 at 01:05 AM
 --
 
@@ -375,7 +375,7 @@ CREATE TABLE `user` (
 --
 -- Table structure for table `visitor`
 --
--- Creation: Oct 06, 2022 at 04:14 AM
+-- Creation: Jul 24, 2024 at 01:09 PM
 --
 
 DROP TABLE IF EXISTS `visitor`;
@@ -385,7 +385,8 @@ CREATE TABLE `visitor` (
   `time_last_request` datetime NOT NULL DEFAULT '2000-01-01 00:00:00',
   `ip_address` varchar(16) NOT NULL DEFAULT '',
   `request_count` int(12) UNSIGNED NOT NULL DEFAULT '1',
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `captcha_code` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
