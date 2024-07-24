@@ -94,7 +94,19 @@ function xhr($param) {
 	return $funcname($param);
 }
 
+function outhtml_google_analytics_tag() {
+return <<<SCRIPTSTRING
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMJ0NGFW0Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-EMJ0NGFW0Q');
+</script>'
+SCRIPTSTRING;
+}
 
 // =============================================================================
 function outhtml_head($param) {
@@ -125,6 +137,8 @@ function outhtml_head($param) {
 	}
 
 	$out .= "</head>".PHP_EOL;
+
+	$out .= outhtml_google_analytics_tag().PHP_EOL;
 
 	return $out.PHP_EOL;
 }
@@ -979,10 +993,10 @@ function myentry_visitor(&$param) {
 
 	if ($GLOBALS['user_id']) return false;
 	
-	myentry_visitor_check(&$param);
+	myentry_visitor_check($param);
 	
 	if (!$GLOBALS['visitor_id']) {
-		myentry_visitor_firsttime(&$param);
+		myentry_visitor_firsttime($param);
 	} else {
 		$qr = mydb_query("".
 		" UPDATE visitor ".

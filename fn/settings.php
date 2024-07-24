@@ -15,6 +15,16 @@ function my_get_http_domain() {
 }
 
 // =============================================================================
+function my_get_robot_email() {
+	return 'noreply@'.my_get_http_domain();
+}
+
+// =============================================================================
+function my_get_reply_email() {
+	return 'admin@'.my_get_http_domain();
+}
+
+// =============================================================================
 function my_get_siteroot_dir() {
 	return '/home/wkh/1.wkh.z8.ru/docs';
 }

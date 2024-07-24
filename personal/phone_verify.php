@@ -147,15 +147,19 @@ function outhtml_personal_phone_verify_step2(&$param) {
 	//
 	
 	$message = 'Код для webcollect.ru '.$code.' Введите его на сайте.';
+
+	$filteredNumber = preg_replace('/[^0-9]/', '', $qr[0]['phone_number']);
 	
-	list($sms_id, $sms_cnt, $cost, $balance) = send_sms($qr[0]['phone_number'], $message, 0);
+	// var_dump($filteredNumber);
+	list($sms_id, $sms_cnt, $cost, $balance) = send_sms($filteredNumber, $message, 0);
 	
 
 	if ($sms_cnt > 0) {
 		// $out .= "Сообщение отправлено успешно. ID: ".$sms_id.", всего SMS: ".$sms_cnt.", стоимость: ".$cost.", баланс: ".$balance.".\n";
 		// $out .= "Сообщение отправлено успешно. ID: ".$sms_id."";
+		$error_message = '';
 	} else  {
-		$out .= "Ошибка №".(-$sms_cnt).", ".($sms_id ? ", ID: ".$sms_id : "")."";
+		$error_message = "Ошибка №".(-$sms_cnt)." ".($sms_id ? ", ID: ".$sms_id : "")." отправки на номер ".$filteredNumber;
 	}
 	
 	// myemail_send_phone_check(array('code' => $code, 'phone' => $qr[0]['phone_number']));
@@ -218,13 +222,20 @@ function outhtml_personal_phone_verify_step2(&$param) {
 				// $out .= '<input type="hidden" name="action" value="save" />';
 			
 				$out .= '<h1 style=" font-size: 20pt; margin-bottom: 20px; ">Подтверждение номера телефона</h1>';
+
+				if ($error_message !== '') {
+					$out .= '<p class="grayeleg" style=" text-align: justify;  width: 400px; margin-top: 2px; color: red; ">';
+						$out .= $error_message;
+					$out .= '</p>';
+				}
 				
-				$out .= '<p class="grayeleg" style=" text-align: justify; float: left; width: 180px; margin-top: 2px; ">';
+				$out .= '<p class="grayeleg" style=" text-align: left; width: 400px; margin-top: 2px; ">';
 					$out .= 'Номер мобильного телефона';
 				$out .= '</p>';
 				
-				$out .= '<p class="grayeleg" style=" text-align: justify; float: left; width: 180px; margin-top: 2px; color: black; ">';
+				$out .= '<p class="grayeleg" style=" text-align: left;  width: 400px; margin-top: 2px; color: black; ">';
 					$out .= htmlspecialchars($qr[0]['phone_number'], ENT_QUOTES);
+					$out .= ' <span style=" color: blue; ">('.$filteredNumber.')</span>';
 				$out .= '</p>';
 
 				
@@ -408,7 +419,7 @@ function outhtml_personal_phone_verify_form(&$param) {
 	
 	$out = '';
 	
-	if ($param['action'] == 'save') $out .= outhtml_personal_phone_verify_save($param);
+	// if ($param['action'] == 'save') $out .= outhtml_personal_phone_verify_save($param);
 	
 	$qr = mydb_queryarray("".
 		" SELECT user.user_id, ".
@@ -437,31 +448,34 @@ function outhtml_personal_phone_verify_form(&$param) {
 			
 				$out .= '<h1 style=" font-size: 20pt; margin-bottom: 20px; margin-top: 10px; ">Подтверждение номера телефона</h1>';
 				
-				$out .= '<p class="grayeleg" style=" text-align: justify; float: left; width: 180px; margin-top: 2px; ">';
-					$out .= 'Номер мобильного телефона';
-				$out .= '</p>';
-				
-				$out .= '<p class="grayeleg" style=" text-align: justify; float: left; width: 180px; margin-top: 2px; color: black; ">';
-					$out .= htmlspecialchars($qr[0]['phone_number'], ENT_QUOTES);
+				$out .= '<p class="grayeleg" style=" text-align: justify;  width: 400px; margin-top: 2px; ">';
+					$out .= 'Номер мобильного телефона ';
+					$out .= '<span style=" color: black; ">'.htmlspecialchars($qr[0]['phone_number'], ENT_QUOTES).'</span>';
 				$out .= '</p>';
 
 				$out .= '<div style=" clear: both; height: 20px; "></div>';
 				
-				$out .= '<p class="grayeleg" style=" text-align: justify; float: left; width: 500px; margin-top: 2px; ">';
+				$out .= '<p class="grayeleg" style=" text-align: justify;  width: 500px; margin-top: 2px; ">';
 					$out .= 'На ваш номер будет отправлено сообщение SMS с кодом.';
 				$out .= '</p>';
 				
-				$out .= '<p class="grayeleg" style=" text-align: justify; float: left; width: 500px; margin-top: 2px; ">';
+				$out .= '<p class="grayeleg" style=" text-align: justify; width: 500px; margin-top: 2px; ">';
 					$out .= 'Мы не занимаемся рассылкой рекламных сообщений и не передаем ваш номер третьим лицам.';
 				$out .= '</p>';
+
+				$out .= '<p class="grayeleg" style=" clear: both; ">';
 				
-				$out .= '<button class="lightbluegradient hoverlightblueborder" style=" cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #606060; padding: 2px 12px 3px 12px; min-width: 50px; float: left; " type="submit" name="step" value="2" >Подтвердить</button>';
+					$out .= '<button class="lightbluegradient hoverlightblueborder" style=" cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #606060; padding: 2px 12px 3px 12px; min-width: 50px; float: left; " type="submit" name="step" value="2" >Подтвердить</button>';
+
+					$out .= '<button class="lightbluegradient hoverlightblueborder" style=" cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #606060; padding: 2px 12px 3px 12px; min-width: 50px; float: left; margin-left: 20px; " onclick=" window.location.href = \'/index.php?m=p&sm=r\'; ">Отмена</button>';
+					
+					$out .= '<button class="lightbluegradient hoverlightblueborder" style=" cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #606060; padding: 2px 12px 3px 12px; min-width: 50px; float: left; margin-left: 20px; " onclick=" window.location.href = \'/personal/name_modify.php\'; ">Изменить номер</button>';
+
+				$out .= '</p>';
 				
 				$out .= '</form>';
+
 				
-				$out .= '<button class="lightbluegradient hoverlightblueborder" style=" cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #606060; padding: 2px 12px 3px 12px; min-width: 50px; float: left; margin-left: 20px; " onclick=" window.location.href = \'/index.php?m=p&sm=r\'; ">Отмена</button>';
-				
-				$out .= '<button class="lightbluegradient hoverlightblueborder" style=" cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; font-size: 10pt; vertical-align: bottom; color: #606060; padding: 2px 12px 3px 12px; min-width: 50px; float: left; margin-left: 20px; " onclick=" window.location.href = \'/personal/name_modify.php\'; ">Изменить номер</button>';
 
 				$out .= '<div style=" clear: both; height: 10px; "></div>';
 				

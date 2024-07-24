@@ -16,299 +16,300 @@ function smsc_init() {
 	define("SMSC_PASSWORD", $arr['SMSC_PASSWORD']);
 }
 
-// SMSC.RU API (smsc.ru) версия 3.3 (17.12.2014)
+// SMSC.RU API (smsc.ru) РІРµСЂСЃРёСЏ 3.8 (03.07.2019)
 
-// define("SMSC_LOGIN", "");			// логин клиента
-// define("SMSC_PASSWORD", "");	// пароль или MD5-хеш пароля в нижнем регистре
-define("SMSC_POST", 0);					// использовать метод POST
-define("SMSC_HTTPS", 0);				// использовать HTTPS протокол
-define("SMSC_CHARSET", "utf-8");	// кодировка сообщения: utf-8, koi8-r или windows-1251 (по умолчанию)
-define("SMSC_DEBUG", 0);				// флаг отладки
-define("SMTP_FROM", "api@smsc.ru");     // e-mail адрес отправителя
+smsc_init();
+// define("SMSC_LOGIN", "login");            // Р»РѕРіРёРЅ РєР»РёРµРЅС‚Р°
+// define("SMSC_PASSWORD", "password");    // РїР°СЂРѕР»СЊ
+define("SMSC_POST", 0);                    // РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РјРµС‚РѕРґ POST
+define("SMSC_HTTPS", 0);                // РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ HTTPS РїСЂРѕС‚РѕРєРѕР»
+define("SMSC_CHARSET", "windows-1251");    // РєРѕРґРёСЂРѕРІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ: utf-8, koi8-r РёР»Рё windows-1251 (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ)
+define("SMSC_DEBUG", 0);                // С„Р»Р°Рі РѕС‚Р»Р°РґРєРё
+define("SMTP_FROM", "api@smsc.ru");     // e-mail Р°РґСЂРµСЃ РѕС‚РїСЂР°РІРёС‚РµР»СЏ
 
-// Функция отправки SMS
+// Р¤СѓРЅРєС†РёСЏ РѕС‚РїСЂР°РІРєРё SMS
 //
-// обязательные параметры:
+// РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹:
 //
-// $phones - список телефонов через запятую или точку с запятой
-// $message - отправляемое сообщение
+// $phones - СЃРїРёСЃРѕРє С‚РµР»РµС„РѕРЅРѕРІ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ РёР»Рё С‚РѕС‡РєСѓ СЃ Р·Р°РїСЏС‚РѕР№
+// $message - РѕС‚РїСЂР°РІР»СЏРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 //
-// необязательные параметры:
+// РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹:
 //
-// $translit - переводить или нет в транслит (1,2 или 0)
-// $time - необходимое время доставки в виде строки (DDMMYYhhmm, h1-h2, 0ts, +m)
-// $id - идентификатор сообщения. Представляет собой 32-битное число в диапазоне от 1 до 2147483647.
-// $format - формат сообщения (0 - обычное sms, 1 - flash-sms, 2 - wap-push, 3 - hlr, 4 - bin, 5 - bin-hex, 6 - ping-sms, 7 - mms, 8 - mail)
-// $sender - имя отправителя (Sender ID). Для отключения Sender ID по умолчанию необходимо в качестве имени
-// передать пустую строку или точку.
-// $query - строка дополнительных параметров, добавляемая в URL-запрос ("valid=01:00&maxsms=3&tz=2")
-// $files - массив путей к файлам для отправки mms или e-mail сообщений
+// $translit - РїРµСЂРµРІРѕРґРёС‚СЊ РёР»Рё РЅРµС‚ РІ С‚СЂР°РЅСЃР»РёС‚ (1,2 РёР»Рё 0)
+// $time - РЅРµРѕР±С…РѕРґРёРјРѕРµ РІСЂРµРјСЏ РґРѕСЃС‚Р°РІРєРё РІ РІРёРґРµ СЃС‚СЂРѕРєРё (DDMMYYhhmm, h1-h2, 0ts, +m)
+// $id - РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃРѕРѕР±С‰РµРЅРёСЏ. РџСЂРµРґСЃС‚Р°РІР»СЏРµС‚ СЃРѕР±РѕР№ 32-Р±РёС‚РЅРѕРµ С‡РёСЃР»Рѕ РІ РґРёР°РїР°Р·РѕРЅРµ РѕС‚ 1 РґРѕ 2147483647.
+// $format - С„РѕСЂРјР°С‚ СЃРѕРѕР±С‰РµРЅРёСЏ (0 - РѕР±С‹С‡РЅРѕРµ sms, 1 - flash-sms, 2 - wap-push, 3 - hlr, 4 - bin, 5 - bin-hex, 6 - ping-sms, 7 - mms, 8 - mail, 9 - call, 10 - viber, 11 - soc)
+// $sender - РёРјСЏ РѕС‚РїСЂР°РІРёС‚РµР»СЏ (Sender ID).
+// $query - СЃС‚СЂРѕРєР° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ, РґРѕР±Р°РІР»СЏРµРјР°СЏ РІ URL-Р·Р°РїСЂРѕСЃ ("valid=01:00&maxsms=3&tz=2")
+// $files - РјР°СЃСЃРёРІ РїСѓС‚РµР№ Рє С„Р°Р№Р»Р°Рј РґР»СЏ РѕС‚РїСЂР°РІРєРё mms РёР»Рё e-mail СЃРѕРѕР±С‰РµРЅРёР№
 //
-// возвращает массив (<id>, <количество sms>, <стоимость>, <баланс>) в случае успешной отправки
-// либо массив (<id>, -<код ошибки>) в случае ошибки
+// РІРѕР·РІСЂР°С‰Р°РµС‚ РјР°СЃСЃРёРІ (<id>, <РєРѕР»РёС‡РµСЃС‚РІРѕ sms>, <СЃС‚РѕРёРјРѕСЃС‚СЊ>, <Р±Р°Р»Р°РЅСЃ>) РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕР№ РѕС‚РїСЂР°РІРєРё
+// Р»РёР±Рѕ РјР°СЃСЃРёРІ (<id>, -<РєРѕРґ РѕС€РёР±РєРё>) РІ СЃР»СѓС‡Р°Рµ РѕС€РёР±РєРё
 
 function send_sms($phones, $message, $translit = 0, $time = 0, $id = 0, $format = 0, $sender = false, $query = "", $files = array())
 {
-	static $formats = array(1 => "flash=1", "push=1", "hlr=1", "bin=1", "bin=2", "ping=1", "mms=1", "mail=1");
+    static $formats = array(1 => "flash=1", "push=1", "hlr=1", "bin=1", "bin=2", "ping=1", "mms=1", "mail=1", "call=1", "viber=1", "soc=1");
 
-	$m = _smsc_send_cmd("send", "cost=3&phones=".urlencode($phones)."&mes=".urlencode($message).
-					"&translit=$translit&id=$id".($format > 0 ? "&".$formats[$format] : "").
-					($sender === false ? "" : "&sender=".urlencode($sender)).
-					($time ? "&time=".urlencode($time) : "").($query ? "&$query" : ""), $files);
+    $m = _smsc_send_cmd("send", "cost=3&phones=".urlencode($phones)."&mes=".urlencode($message).
+                    "&translit=$translit&id=$id".($format > 0 ? "&".$formats[$format] : "").
+                    ($sender === false ? "" : "&sender=".urlencode($sender)).
+                    ($time ? "&time=".urlencode($time) : "").($query ? "&$query" : ""), $files);
 
-	// (id, cnt, cost, balance) или (id, -error)
+    // (id, cnt, cost, balance) РёР»Рё (id, -error)
 
-	if (SMSC_DEBUG) {
-		if ($m[1] > 0)
-			echo "Сообщение отправлено успешно. ID: $m[0], всего SMS: $m[1], стоимость: $m[2], баланс: $m[3].\n";
-		else 
-			echo "Ошибка №", -$m[1], $m[0] ? ", ID: ".$m[0] : "", "\n";
-	}
+    if (SMSC_DEBUG) {
+        if ($m[1] > 0)
+            echo "РЎРѕРѕР±С‰РµРЅРёРµ РѕС‚РїСЂР°РІР»РµРЅРѕ СѓСЃРїРµС€РЅРѕ. ID: $m[0], РІСЃРµРіРѕ SMS: $m[1], СЃС‚РѕРёРјРѕСЃС‚СЊ: $m[2], Р±Р°Р»Р°РЅСЃ: $m[3].\n";
+        else
+            echo "РћС€РёР±РєР° в„–", -$m[1], $m[0] ? ", ID: ".$m[0] : "", "\n";
+    }
 
-	return $m;
+    return $m;
 }
 
-// SMTP версия функции отправки SMS
+// SMTP РІРµСЂСЃРёСЏ С„СѓРЅРєС†РёРё РѕС‚РїСЂР°РІРєРё SMS
 
 function send_sms_mail($phones, $message, $translit = 0, $time = 0, $id = 0, $format = 0, $sender = "")
 {
-	return mail("send@send.smsc.ru", "", SMSC_LOGIN.":".SMSC_PASSWORD.":$id:$time:$translit,$format,$sender:$phones:$message", "From: ".SMTP_FROM."\nContent-Type: text/plain; charset=".SMSC_CHARSET."\n");
+    return mail("send@send.smsc.ru", "", SMSC_LOGIN.":".SMSC_PASSWORD.":$id:$time:$translit,$format,$sender:$phones:$message", "From: ".SMTP_FROM."\nContent-Type: text/plain; charset=".SMSC_CHARSET."\n");
 }
 
-// Функция получения стоимости SMS
+// Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃС‚РѕРёРјРѕСЃС‚Рё SMS
 //
-// обязательные параметры:
+// РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹:
 //
-// $phones - список телефонов через запятую или точку с запятой
-// $message - отправляемое сообщение 
+// $phones - СЃРїРёСЃРѕРє С‚РµР»РµС„РѕРЅРѕРІ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ РёР»Рё С‚РѕС‡РєСѓ СЃ Р·Р°РїСЏС‚РѕР№
+// $message - РѕС‚РїСЂР°РІР»СЏРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 //
-// необязательные параметры:
+// РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹:
 //
-// $translit - переводить или нет в транслит (1,2 или 0)
-// $format - формат сообщения (0 - обычное sms, 1 - flash-sms, 2 - wap-push, 3 - hlr, 4 - bin, 5 - bin-hex, 6 - ping-sms, 7 - mms, 8 - mail)
-// $sender - имя отправителя (Sender ID)
-// $query - строка дополнительных параметров, добавляемая в URL-запрос ("list=79999999999:Ваш пароль: 123\n78888888888:Ваш пароль: 456")
+// $translit - РїРµСЂРµРІРѕРґРёС‚СЊ РёР»Рё РЅРµС‚ РІ С‚СЂР°РЅСЃР»РёС‚ (1,2 РёР»Рё 0)
+// $format - С„РѕСЂРјР°С‚ СЃРѕРѕР±С‰РµРЅРёСЏ (0 - РѕР±С‹С‡РЅРѕРµ sms, 1 - flash-sms, 2 - wap-push, 3 - hlr, 4 - bin, 5 - bin-hex, 6 - ping-sms, 7 - mms, 8 - mail, 9 - call, 10 - viber, 11 - soc)
+// $sender - РёРјСЏ РѕС‚РїСЂР°РІРёС‚РµР»СЏ (Sender ID)
+// $query - СЃС‚СЂРѕРєР° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ, РґРѕР±Р°РІР»СЏРµРјР°СЏ РІ URL-Р·Р°РїСЂРѕСЃ ("list=79999999999:Р’Р°С€ РїР°СЂРѕР»СЊ: 123\n78888888888:Р’Р°С€ РїР°СЂРѕР»СЊ: 456")
 //
-// возвращает массив (<стоимость>, <количество sms>) либо массив (0, -<код ошибки>) в случае ошибки
+// РІРѕР·РІСЂР°С‰Р°РµС‚ РјР°СЃСЃРёРІ (<СЃС‚РѕРёРјРѕСЃС‚СЊ>, <РєРѕР»РёС‡РµСЃС‚РІРѕ sms>) Р»РёР±Рѕ РјР°СЃСЃРёРІ (0, -<РєРѕРґ РѕС€РёР±РєРё>) РІ СЃР»СѓС‡Р°Рµ РѕС€РёР±РєРё
 
 function get_sms_cost($phones, $message, $translit = 0, $format = 0, $sender = false, $query = "")
 {
-	static $formats = array(1 => "flash=1", "push=1", "hlr=1", "bin=1", "bin=2", "ping=1", "mms=1", "mail=1");
+    static $formats = array(1 => "flash=1", "push=1", "hlr=1", "bin=1", "bin=2", "ping=1", "mms=1", "mail=1", "call=1", "viber=1", "soc=1");
 
-	$m = _smsc_send_cmd("send", "cost=1&phones=".urlencode($phones)."&mes=".urlencode($message).
-					($sender === false ? "" : "&sender=".urlencode($sender)).
-					"&translit=$translit".($format > 0 ? "&".$formats[$format] : "").($query ? "&$query" : ""));
+    $m = _smsc_send_cmd("send", "cost=1&phones=".urlencode($phones)."&mes=".urlencode($message).
+                    ($sender === false ? "" : "&sender=".urlencode($sender)).
+                    "&translit=$translit".($format > 0 ? "&".$formats[$format] : "").($query ? "&$query" : ""));
 
-	// (cost, cnt) или (0, -error)
+    // (cost, cnt) РёР»Рё (0, -error)
 
-	if (SMSC_DEBUG) {
-		if ($m[1] > 0)
-			echo "Стоимость рассылки: $m[0]. Всего SMS: $m[1]\n";
-		else
-			echo "Ошибка №", -$m[1], "\n";
-	}
+    if (SMSC_DEBUG) {
+        if ($m[1] > 0)
+            echo "РЎС‚РѕРёРјРѕСЃС‚СЊ СЂР°СЃСЃС‹Р»РєРё: $m[0]. Р’СЃРµРіРѕ SMS: $m[1]\n";
+        else
+            echo "РћС€РёР±РєР° в„–", -$m[1], "\n";
+    }
 
-	return $m;
+    return $m;
 }
 
-// Функция проверки статуса отправленного SMS или HLR-запроса
+// Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё СЃС‚Р°С‚СѓСЃР° РѕС‚РїСЂР°РІР»РµРЅРЅРѕРіРѕ SMS РёР»Рё HLR-Р·Р°РїСЂРѕСЃР°
 //
-// $id - ID cообщения или список ID через запятую
-// $phone - номер телефона или список номеров через запятую
-// $all - вернуть все данные отправленного SMS, включая текст сообщения (0,1 или 2)
+// $id - ID cРѕРѕР±С‰РµРЅРёСЏ РёР»Рё СЃРїРёСЃРѕРє ID С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ
+// $phone - РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РёР»Рё СЃРїРёСЃРѕРє РЅРѕРјРµСЂРѕРІ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ
+// $all - РІРµСЂРЅСѓС‚СЊ РІСЃРµ РґР°РЅРЅС‹Рµ РѕС‚РїСЂР°РІР»РµРЅРЅРѕРіРѕ SMS, РІРєР»СЋС‡Р°СЏ С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ (0,1 РёР»Рё 2)
 //
-// возвращает массив (для множественного запроса двумерный массив):
+// РІРѕР·РІСЂР°С‰Р°РµС‚ РјР°СЃСЃРёРІ (РґР»СЏ РјРЅРѕР¶РµСЃС‚РІРµРЅРЅРѕРіРѕ Р·Р°РїСЂРѕСЃР° РґРІСѓРјРµСЂРЅС‹Р№ РјР°СЃСЃРёРІ):
 //
-// для одиночного SMS-сообщения:
-// (<статус>, <время изменения>, <код ошибки доставки>)
+// РґР»СЏ РѕРґРёРЅРѕС‡РЅРѕРіРѕ SMS-СЃРѕРѕР±С‰РµРЅРёСЏ:
+// (<СЃС‚Р°С‚СѓСЃ>, <РІСЂРµРјСЏ РёР·РјРµРЅРµРЅРёСЏ>, <РєРѕРґ РѕС€РёР±РєРё РґРѕСЃС‚Р°РІРєРё>)
 //
-// для HLR-запроса:
-// (<статус>, <время изменения>, <код ошибки sms>, <код IMSI SIM-карты>, <номер сервис-центра>, <код страны регистрации>, <код оператора>,
-// <название страны регистрации>, <название оператора>, <название роуминговой страны>, <название роумингового оператора>)
+// РґР»СЏ HLR-Р·Р°РїСЂРѕСЃР°:
+// (<СЃС‚Р°С‚СѓСЃ>, <РІСЂРµРјСЏ РёР·РјРµРЅРµРЅРёСЏ>, <РєРѕРґ РѕС€РёР±РєРё sms>, <РєРѕРґ IMSI SIM-РєР°СЂС‚С‹>, <РЅРѕРјРµСЂ СЃРµСЂРІРёСЃ-С†РµРЅС‚СЂР°>, <РєРѕРґ СЃС‚СЂР°РЅС‹ СЂРµРіРёСЃС‚СЂР°С†РёРё>, <РєРѕРґ РѕРїРµСЂР°С‚РѕСЂР°>,
+// <РЅР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅС‹ СЂРµРіРёСЃС‚СЂР°С†РёРё>, <РЅР°Р·РІР°РЅРёРµ РѕРїРµСЂР°С‚РѕСЂР°>, <РЅР°Р·РІР°РЅРёРµ СЂРѕСѓРјРёРЅРіРѕРІРѕР№ СЃС‚СЂР°РЅС‹>, <РЅР°Р·РІР°РЅРёРµ СЂРѕСѓРјРёРЅРіРѕРІРѕРіРѕ РѕРїРµСЂР°С‚РѕСЂР°>)
 //
-// при $all = 1 дополнительно возвращаются элементы в конце массива:
-// (<время отправки>, <номер телефона>, <стоимость>, <sender id>, <название статуса>, <текст сообщения>)
+// РїСЂРё $all = 1 РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ РІРѕР·РІСЂР°С‰Р°СЋС‚СЃСЏ СЌР»РµРјРµРЅС‚С‹ РІ РєРѕРЅС†Рµ РјР°СЃСЃРёРІР°:
+// (<РІСЂРµРјСЏ РѕС‚РїСЂР°РІРєРё>, <РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°>, <СЃС‚РѕРёРјРѕСЃС‚СЊ>, <sender id>, <РЅР°Р·РІР°РЅРёРµ СЃС‚Р°С‚СѓСЃР°>, <С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ>)
 //
-// при $all = 2 дополнительно возвращаются элементы <страна>, <оператор> и <регион>
+// РїСЂРё $all = 2 РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ РІРѕР·РІСЂР°С‰Р°СЋС‚СЃСЏ СЌР»РµРјРµРЅС‚С‹ <СЃС‚СЂР°РЅР°>, <РѕРїРµСЂР°С‚РѕСЂ> Рё <СЂРµРіРёРѕРЅ>
 //
-// при множественном запросе:
-// если $all = 0, то для каждого сообщения или HLR-запроса дополнительно возвращается <ID сообщения> и <номер телефона>
+// РїСЂРё РјРЅРѕР¶РµСЃС‚РІРµРЅРЅРѕРј Р·Р°РїСЂРѕСЃРµ:
+// РµСЃР»Рё $all = 0, С‚Рѕ РґР»СЏ РєР°Р¶РґРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ РёР»Рё HLR-Р·Р°РїСЂРѕСЃР° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ <ID СЃРѕРѕР±С‰РµРЅРёСЏ> Рё <РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°>
 //
-// если $all = 1 или $all = 2, то в ответ добавляется <ID сообщения>
+// РµСЃР»Рё $all = 1 РёР»Рё $all = 2, С‚Рѕ РІ РѕС‚РІРµС‚ РґРѕР±Р°РІР»СЏРµС‚СЃСЏ <ID СЃРѕРѕР±С‰РµРЅРёСЏ>
 //
-// либо массив (0, -<код ошибки>) в случае ошибки
+// Р»РёР±Рѕ РјР°СЃСЃРёРІ (0, -<РєРѕРґ РѕС€РёР±РєРё>) РІ СЃР»СѓС‡Р°Рµ РѕС€РёР±РєРё
 
 function get_status($id, $phone, $all = 0)
 {
-	$m = _smsc_send_cmd("status", "phone=".urlencode($phone)."&id=".urlencode($id)."&all=".(int)$all);
+    $m = _smsc_send_cmd("status", "phone=".urlencode($phone)."&id=".urlencode($id)."&all=".(int)$all);
 
-	// (status, time, err, ...) или (0, -error)
+    // (status, time, err, ...) РёР»Рё (0, -error)
 
-	if (!strpos($id, ",")) {
-		if (SMSC_DEBUG )
-			if ($m[1] != "" && $m[1] >= 0)
-				echo "Статус SMS = $m[0]", $m[1] ? ", время изменения статуса - ".date("d.m.Y H:i:s", $m[1]) : "", "\n";
-			else
-				echo "Ошибка №", -$m[1], "\n";
+    if (!strpos($id, ",")) {
+        if (SMSC_DEBUG )
+            if ($m[1] != "" && $m[1] >= 0)
+                echo "РЎС‚Р°С‚СѓСЃ SMS = $m[0]", $m[1] ? ", РІСЂРµРјСЏ РёР·РјРµРЅРµРЅРёСЏ СЃС‚Р°С‚СѓСЃР° - ".date("d.m.Y H:i:s", $m[1]) : "", "\n";
+            else
+                echo "РћС€РёР±РєР° в„–", -$m[1], "\n";
 
-		if ($all && count($m) > 9 && (!isset($m[$idx = $all == 1 ? 14 : 17]) || $m[$idx] != "HLR")) // ',' в сообщении
-			$m = explode(",", implode(",", $m), $all == 1 ? 9 : 12);
-	}
-	else {
-		if (count($m) == 1 && strpos($m[0], "-") == 2)
-			return explode(",", $m[0]);
+        if ($all && count($m) > 9 && (!isset($m[$idx = $all == 1 ? 14 : 17]) || $m[$idx] != "HLR")) // ',' РІ СЃРѕРѕР±С‰РµРЅРёРё
+            $m = explode(",", implode(",", $m), $all == 1 ? 9 : 12);
+    }
+    else {
+        if (count($m) == 1 && strpos($m[0], "-") == 2)
+            return explode(",", $m[0]);
 
-		foreach ($m as $k => $v)
-			$m[$k] = explode(",", $v);
-	}
+        foreach ($m as $k => $v)
+            $m[$k] = explode(",", $v);
+    }
 
-	return $m;
+    return $m;
 }
 
-// Функция получения баланса
+// Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ Р±Р°Р»Р°РЅСЃР°
 //
-// без параметров
+// Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
 //
-// возвращает баланс в виде строки или false в случае ошибки
+// РІРѕР·РІСЂР°С‰Р°РµС‚ Р±Р°Р»Р°РЅСЃ РІ РІРёРґРµ СЃС‚СЂРѕРєРё РёР»Рё false РІ СЃР»СѓС‡Р°Рµ РѕС€РёР±РєРё
 
 function get_balance()
 {
-	$m = _smsc_send_cmd("balance"); // (balance) или (0, -error)
+    $m = _smsc_send_cmd("balance"); // (balance) РёР»Рё (0, -error)
 
-	if (SMSC_DEBUG) {
-		if (!isset($m[1]))
-			echo "Сумма на счете: ", $m[0], "\n";
-		else
-			echo "Ошибка №", -$m[1], "\n";
-	}
+    if (SMSC_DEBUG) {
+        if (!isset($m[1]))
+            echo "РЎСѓРјРјР° РЅР° СЃС‡РµС‚Рµ: ", $m[0], "\n";
+        else
+            echo "РћС€РёР±РєР° в„–", -$m[1], "\n";
+    }
 
-	return isset($m[1]) ? false : $m[0];
+    return isset($m[1]) ? false : $m[0];
 }
 
 
-// ВНУТРЕННИЕ ФУНКЦИИ
+// Р’РќРЈРўР Р•РќРќРР• Р¤РЈРќРљР¦РР
 
-// Функция вызова запроса. Формирует URL и делает 3 попытки чтения
+// Р¤СѓРЅРєС†РёСЏ РІС‹Р·РѕРІР° Р·Р°РїСЂРѕСЃР°. Р¤РѕСЂРјРёСЂСѓРµС‚ URL Рё РґРµР»Р°РµС‚ 5 РїРѕРїС‹С‚РѕРє С‡С‚РµРЅРёСЏ С‡РµСЂРµР· СЂР°Р·РЅС‹Рµ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє СЃРµСЂРІРёСЃСѓ
 
 function _smsc_send_cmd($cmd, $arg = "", $files = array())
 {
-	$url = (SMSC_HTTPS ? "https" : "http")."://smsc.ru/sys/$cmd.php?login=".urlencode(SMSC_LOGIN)."&psw=".urlencode(SMSC_PASSWORD)."&fmt=1&charset=".SMSC_CHARSET."&".$arg;
+    $url = $_url = (SMSC_HTTPS ? "https" : "http")."://smsc.ru/sys/$cmd.php?login=".urlencode(SMSC_LOGIN)."&psw=".urlencode(SMSC_PASSWORD)."&fmt=1&charset=".SMSC_CHARSET."&".$arg;
 
-	$i = 0;
-	do {
-		if ($i) {
-			sleep(2 + $i);
+    $i = 0;
+    do {
+        if ($i++)
+            $url = str_replace('://smsc.ru/', '://www'.$i.'.smsc.ru/', $_url);
 
-			if ($i == 2)
-				$url = str_replace('://smsc.ru/', '://www2.smsc.ru/', $url);
-		}
+        $ret = _smsc_read_url($url, $files, 3 + $i);
+    }
+    while ($ret == "" && $i < 5);
 
-		$ret = _smsc_read_url($url, $files);
-	}
-	while ($ret == "" && ++$i < 4);
+    if ($ret == "") {
+        if (SMSC_DEBUG)
+            echo "РћС€РёР±РєР° С‡С‚РµРЅРёСЏ Р°РґСЂРµСЃР°: $url\n";
 
-	if ($ret == "") {
-		if (SMSC_DEBUG)
-			echo "Ошибка чтения адреса: $url\n";
+        $ret = ","; // С„РёРєС‚РёРІРЅС‹Р№ РѕС‚РІРµС‚
+    }
 
-		$ret = ","; // фиктивный ответ
-	}
+    $delim = ",";
 
-	$delim = ",";
+    if ($cmd == "status") {
+        parse_str($arg, $m);
 
-	if ($cmd == "status") {
-		parse_str($arg);
+        if (strpos($m["id"], ","))
+            $delim = "\n";
+    }
 
-		if (strpos($id, ","))
-			$delim = "\n";
-	}
-
-	return explode($delim, $ret);
+    return explode($delim, $ret);
 }
 
-// Функция чтения URL. Для работы должно быть доступно:
-// curl или fsockopen (только http) или включена опция allow_url_fopen для file_get_contents
+// Р¤СѓРЅРєС†РёСЏ С‡С‚РµРЅРёСЏ URL. Р”Р»СЏ СЂР°Р±РѕС‚С‹ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РґРѕСЃС‚СѓРїРЅРѕ:
+// curl РёР»Рё fsockopen (С‚РѕР»СЊРєРѕ http) РёР»Рё РІРєР»СЋС‡РµРЅР° РѕРїС†РёСЏ allow_url_fopen РґР»СЏ file_get_contents
 
-function _smsc_read_url($url, $files)
+function _smsc_read_url($url, $files, $tm = 5)
 {
-	$ret = "";
-	$post = SMSC_POST || strlen($url) > 2000 || $files;
+    $ret = "";
+    $post = SMSC_POST || strlen($url) > 2000 || $files;
 
-	if (function_exists("curl_init"))
-	{
-		static $c = 0; // keepalive
+    if (function_exists("curl_init"))
+    {
+        static $c = 0; // keepalive
 
-		if (!$c) {
-			$c = curl_init();
-			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 10);
-			curl_setopt($c, CURLOPT_TIMEOUT, 60);
-			curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
-		}
+        if (!$c) {
+            $c = curl_init();
+            curl_setopt_array($c, array(
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_CONNECTTIMEOUT => $tm,
+                    CURLOPT_TIMEOUT => 60,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                    CURLOPT_HTTPHEADER => array("Expect:")
+                    ));
+        }
 
-		curl_setopt($c, CURLOPT_POST, $post);
+        curl_setopt($c, CURLOPT_POST, $post);
 
-		if ($post)
-		{
-			list($url, $post) = explode("?", $url, 2);
+        if ($post)
+        {
+            list($url, $post) = explode("?", $url, 2);
 
-			if ($files) {
-				parse_str($post, $m);
+            if ($files) {
+                parse_str($post, $m);
 
-				foreach ($m as $k => $v)
-					$m[$k] = isset($v[0]) && $v[0] == "@" ? sprintf("\0%s", $v) : $v;
+                foreach ($m as $k => $v)
+                    $m[$k] = isset($v[0]) && $v[0] == "@" ? sprintf("\0%s", $v) : $v;
 
-				$post = $m;
-				foreach ($files as $i => $path)
-					if (file_exists($path))
-						$post["file".$i] = function_exists("curl_file_create") ? curl_file_create($path) : "@".$path;
-			}
+                $post = $m;
+                foreach ($files as $i => $path)
+                    if (file_exists($path))
+                        $post["file".$i] = function_exists("curl_file_create") ? curl_file_create($path) : "@".$path;
+            }
 
-			curl_setopt($c, CURLOPT_POSTFIELDS, $post);
-		}
+            curl_setopt($c, CURLOPT_POSTFIELDS, $post);
+        }
 
-		curl_setopt($c, CURLOPT_URL, $url);
+        curl_setopt($c, CURLOPT_URL, $url);
 
-		$ret = curl_exec($c);
-	}
-	elseif ($files) {
-		if (SMSC_DEBUG)
-			echo "Не установлен модуль curl для передачи файлов\n";
-	}
-	else {
-		if (!SMSC_HTTPS && function_exists("fsockopen"))
-		{
-			$m = parse_url($url);
+        $ret = curl_exec($c);
+    }
+    elseif ($files) {
+        if (SMSC_DEBUG)
+            echo "РќРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ РјРѕРґСѓР»СЊ curl РґР»СЏ РїРµСЂРµРґР°С‡Рё С„Р°Р№Р»РѕРІ\n";
+    }
+    else {
+        if (!SMSC_HTTPS && function_exists("fsockopen"))
+        {
+            $m = parse_url($url);
 
-			if (!$fp = fsockopen($m["host"], 80, $errno, $errstr, 10))
-				$fp = fsockopen("212.24.33.196", 80, $errno, $errstr, 10);
+            if (!$fp = fsockopen($m["host"], 80, $errno, $errstr, $tm))
+                $fp = fsockopen("212.24.33.196", 80, $errno, $errstr, $tm);
 
-			if ($fp) {
-				fwrite($fp, ($post ? "POST $m[path]" : "GET $m[path]?$m[query]")." HTTP/1.1\r\nHost: smsc.ru\r\nUser-Agent: PHP".($post ? "\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: ".strlen($m['query']) : "")."\r\nConnection: Close\r\n\r\n".($post ? $m['query'] : ""));
+            if ($fp) {
+                stream_set_timeout($fp, 60);
 
-				while (!feof($fp))
-					$ret .= fgets($fp, 1024);
-				list(, $ret) = explode("\r\n\r\n", $ret, 2);
+                fwrite($fp, ($post ? "POST $m[path]" : "GET $m[path]?$m[query]")." HTTP/1.1\r\nHost: smsc.ru\r\nUser-Agent: PHP".($post ? "\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: ".strlen($m['query']) : "")."\r\nConnection: Close\r\n\r\n".($post ? $m['query'] : ""));
 
-				fclose($fp);
-			}
-		}
-		else
-			$ret = file_get_contents($url);
-	}
+                while (!feof($fp))
+                    $ret .= fgets($fp, 1024);
+                list(, $ret) = explode("\r\n\r\n", $ret, 2);
 
-	return $ret;
+                fclose($fp);
+            }
+        }
+        else
+            $ret = file_get_contents($url);
+    }
+
+    return $ret;
 }
 
 // Examples:
 // include "smsc_api.php";
-// list($sms_id, $sms_cnt, $cost, $balance) = send_sms("79999999999", "Ваш пароль: 123", 1);
+// list($sms_id, $sms_cnt, $cost, $balance) = send_sms("79999999999", "Р’Р°С€ РїР°СЂРѕР»СЊ: 123", 1);
 // list($sms_id, $sms_cnt, $cost, $balance) = send_sms("79999999999", "http://smsc.ru\nSMSC.RU", 0, 0, 0, 0, false, "maxsms=3");
 // list($sms_id, $sms_cnt, $cost, $balance) = send_sms("79999999999", "0605040B8423F0DC0601AE02056A0045C60C036D79736974652E72750001036D7973697465000101", 0, 0, 0, 5, false);
 // list($sms_id, $sms_cnt, $cost, $balance) = send_sms("79999999999", "", 0, 0, 0, 3, false);
-// list($sms_id, $sms_cnt, $cost, $balance) = send_sms("dest@mysite.com", "Ваш пароль: 123", 0, 0, 0, 8, "source@mysite.com", "subj=Confirmation");
-// list($cost, $sms_cnt) = get_sms_cost("79999999999", "Вы успешно зарегистрированы!");
-// send_sms_mail("79999999999", "Ваш пароль: 123", 0, "0101121000");
+// list($sms_id, $sms_cnt, $cost, $balance) = send_sms("dest@mysite.com", "Р’Р°С€ РїР°СЂРѕР»СЊ: 123", 0, 0, 0, 8, "source@mysite.com", "subj=Confirmation");
+// list($cost, $sms_cnt) = get_sms_cost("79999999999", "Р’С‹ СѓСЃРїРµС€РЅРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹!");
+// send_sms_mail("79999999999", "Р’Р°С€ РїР°СЂРѕР»СЊ: 123", 0, "0101121000");
 // list($status, $time) = get_status($sms_id, "79999999999");
 // $balance = get_balance();
 

@@ -32,19 +32,25 @@ function myemail_send() {
 // =============================================================================
 function myemail_send_registration($param) {
 
+	// var_dump('sending email..');
+
 	$linkstr = 'http://'.my_get_http_domain().'/register.php?a=v&code='.$param['codestr'];
 
 	$email_subject = ''.my_get_http_domain().' регистрация';
-	$email_subject = '=?'.'UTF-8'.'?B?'.base64_encode($email_subject).'?=';
+	// $email_subject = '=?'.'UTF-8'.'?B?'.base64_encode($email_subject).'?=';
 	
 	$email_to = $param['email'];
 	// $email_to = '=?'.'UTF-8'.'?B?'.base64_encode($email_to).'?=';
 	
 	$email_headers = '';
-	$email_headers .= 'From: "Robot '.my_get_http_domain().'" <noreply@'.my_get_http_domain().'>'.PHP_EOL;
-	$email_headers .= 'MIME-Version: 1.0'.PHP_EOL;
-	$email_headers .= 'Content-type: text/plain; charset=UTF-8'.PHP_EOL;
-	$email_headers .= 'Content-Transfer-Encoding: base64'.PHP_EOL;
+	$email_headers .= 'From: '.my_get_robot_email()."\r\n";
+	$email_headers .= 'Reply-To: '.my_get_reply_email()."\r\n";
+	$email_headers .= 'X-Mailer: PHP/' . phpversion().PHP_EOL;
+	$email_headers .= 'Content-type: text/plain; charset=UTF-8';
+
+	// $email_headers .= 'MIME-Version: 1.0'.PHP_EOL;
+	// $email_headers .= 'Content-type: text/plain; charset=UTF-8'.PHP_EOL;
+	// $email_headers .= 'Content-Transfer-Encoding: base64'.PHP_EOL;
 	
 	$email_body = 'Здравствуйте!'.PHP_EOL;
 	$email_body .= 'Пожалуйста, не отвечайте на это сообщение. Оно создано автоматической системой.'.PHP_EOL;
@@ -66,11 +72,26 @@ function myemail_send_registration($param) {
 	$email_body .= 'Робот '.my_get_http_domain().PHP_EOL;
 	// $email_body = wordwrap($email_body, 70); // не работает с мультибайт нормально
 	$email_body = htmlspecialchars_decode($email_body, ENT_QUOTES);
-	$email_body = base64_encode($email_body);
+	// $email_body = base64_encode($email_body);
 
-	$result = mail($email_to, $email_subject, $email_body, $email_headers);
+/* 	var_dump($email_to);
+	var_dump($email_subject);
+	var_dump($email_body);
+	var_dump($email_headers); */
+
+	// $result = mail($email_to, $email_subject, $email_body, $email_headers);
+	$result = mb_send_mail($email_to, $email_subject, $email_body, $email_headers);
 	
-	if (!$result) return false;
+	if (!$result) {
+		var_dump('Problem sending email');
+		var_dump($email_to);
+		var_dump($email_subject);
+		var_dump($email_body);
+		var_dump($email_headers);
+		return false;
+	}
+
+	// var_dump('email sent');
 
 	return true;
 }
